@@ -26,8 +26,38 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "airbnb",
+      "airbnb/hooks",
+      "airbnb-typescript"
+    ],
+    "ignorePatterns": [
+      "/src/serviceWorker.ts"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "rules": {
+      "import/prefer-default-export": "off",
+      "no-multiple-empty-lines": [
+        "error",
+        {
+          "max": 2,
+          "maxBOF": 0,
+          "maxEOF": 0
+        }
+      ],
+      "@typescript-eslint/indent": [
+        "error",
+        2,
+        {
+          "ignoredNodes": [
+            "TSTypeParameterInstantiation"
+          ]
+        }
+      ],
+      "no-console": ["error", { "allow": ["warn", "error"] }]
+    }
   },
   "browserslist": {
     "production": [
@@ -40,5 +70,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0"
   }
 }
