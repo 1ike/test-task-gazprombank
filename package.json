@@ -21,7 +21,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -32,7 +34,7 @@
       "airbnb-typescript"
     ],
     "ignorePatterns": [
-      "/src/serviceWorker.ts"
+      "/src/reportWebVitals.ts"
     ],
     "parserOptions": {
       "project": "./tsconfig.json"
@@ -56,7 +58,15 @@
           ]
         }
       ],
-      "no-console": ["error", { "allow": ["warn", "error"] }]
+      "no-console": [
+        "warn",
+        {
+          "allow": [
+            "warn",
+            "error"
+          ]
+        }
+      ]
     }
   },
   "browserslist": {
@@ -73,6 +83,17 @@
   },
   "devDependencies": {
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.0.0"
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "src/**/*.{css,scss,json}": [
+      "prettier --write"
+    ]
   }
 }

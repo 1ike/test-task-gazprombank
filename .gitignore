@@ -26,3 +26,4 @@ yarn-error.log*
 Makefile
 **/.idea
 **/.vscode
+.env
