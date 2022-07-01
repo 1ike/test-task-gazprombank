@@ -17,10 +17,6 @@ function Button({ children }: ButtonProps) {
   );
 }
 
-// interface Props {
-//   children: React.ReactNode,
-// }
-
 function Header() {
   return (
 

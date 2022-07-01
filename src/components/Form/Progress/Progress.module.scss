@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-top: 4px;
+  margin-bottom: 16px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  color: #262c40;
+}
+
+$sectionMargin: 8px;
+$statusRadius: 8px;
+.section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: $sectionMargin;
+
+  &__status {
+    width: $statusRadius;
+    height: $statusRadius;
+    border-radius: 50%;
+
+    &--inProgress {
+      background: gray;
+    }
+
+    &--success {
+      background: #239c3d;
+    }
+
+    &--error {
+      background: red;
+    }
+  }
+
+  &__name {
+    font-size: 14px;
+    line-height: 20px;
+    color: #262c40;
+  }
+}
+
+.trunk {
+  height: 16px;
+  margin-left: calc($sectionMargin + $statusRadius/2 - 1px);
+  border-left: 1px solid #b8bdce;
+}
