@@ -1,0 +1,40 @@
+.header {
+  min-height: 66px;
+  display: flex;
+  padding: 20px 32px;
+  justify-content: space-between;
+
+  box-shadow: 0px 4px 22px rgba(38, 44, 64, 0.08);
+}
+
+.logo {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 20px;
+  text-decoration: none;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    // reset
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    font-size: 16px;
+    line-height: 20px;
+    color: #262c40;
+  }
+}
