@@ -28,18 +28,18 @@ function Progress({ headerText, data }: Props) {
   };
 
   return (
-    <div className={styles.container}>
+    <span className={styles.container}>
       <h3 className={styles.header}>{headerText}</h3>
       {data.map(({ name, status }, index, array) => (
-        <div key={name}>
-          <div className={styles.section}>
-            <div className={`${styles.section__status} ${statusModificatorClassName[status]}`} />
+        <>
+          <span className={styles.section}>
+            <span className={`${styles.section__status} ${statusModificatorClassName[status]}`} />
             <span className={styles.section__name}>{name}</span>
-          </div>
-          {(index + 1 !== array.length) && <div className={styles.trunk} />}
-        </div>
+          </span>
+          {(index + 1 !== array.length) && <span className={styles.trunk} />}
+        </>
       ))}
-    </div>
+    </span>
   );
 }
 

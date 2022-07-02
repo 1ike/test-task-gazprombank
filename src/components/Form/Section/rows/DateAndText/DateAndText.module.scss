@@ -1,0 +1,7 @@
+@import "../../../../../index.scss";
+
+.fields {
+  display: flex;
+  flex-grow: 1;
+  gap: $form-section-row-field-field-gap;
+}
