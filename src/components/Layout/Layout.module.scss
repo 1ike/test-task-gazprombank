@@ -1,10 +1,10 @@
 .wrapper {
   display: flex;
+  flex-grow: 1;
 }
 
 .aside {
   width: 120px;
-  height: 100vh; // TODO (убрать)
   background: linear-gradient(to bottom, #0057b6, #5960ea);
   padding: 20px;
   text-align: center;
@@ -32,4 +32,5 @@
 
 .content {
   padding: 21px 30px;
+  min-height: 100%;
 }

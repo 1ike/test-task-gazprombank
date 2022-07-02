@@ -21,6 +21,13 @@ body {
   box-sizing: border-box;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+$form-section-gap: 48px;
 $form-section-row-gap: 16px;
 $form-section-row-label-width: 174px;
 $form-section-row-label-field-gap: 12px;

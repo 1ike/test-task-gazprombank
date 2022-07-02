@@ -1,0 +1,6 @@
+@import "../../../../index.scss";
+
+.input {
+  @extend .form-section-row-field;
+  width: 140px;
+}

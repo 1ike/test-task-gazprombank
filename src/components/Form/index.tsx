@@ -4,8 +4,8 @@ import { Form } from 'react-final-form';
 import styles from './Form.module.scss';
 import Progress, { ProgressStatus } from './Progress';
 import Section from './Section';
-import TextFieldsBlock from './Section/TextFieldsBlock';
-import DateAndText from './Section/rows/DateAndText';
+import TextFieldsBlock from './TextFieldsBlock';
+import DateAndText from './rows/DateAndText';
 // import avatar from '../../../assets/images/avatar.svg';
 
 
@@ -41,7 +41,7 @@ const data = [
 ];
 
 const infoSectionScopeName = 'info';
-const infoSectionData = [
+const infoSectionData1 = [
   {
     name: `${infoSectionScopeName}.inn`,
     label: 'ИНН, ОГРН или ОГРНИП',
@@ -50,6 +50,8 @@ const infoSectionData = [
     name: `${infoSectionScopeName}.fullname`,
     label: 'Фамилия, имя и отчество',
   },
+];
+const infoSectionData2 = [
   {
     name: `${infoSectionScopeName}.citizenship`,
     label: 'Гражданство',
@@ -68,6 +70,15 @@ const infoSectionData = [
   },
 ];
 
+const registrationSectionScopeName = 'registration';
+const registrationSectionData = [
+  {
+    name: `${registrationSectionScopeName}.place`,
+    label: 'Место регистрации',
+  },
+];
+
+
 function FormContent() {
   return (
     <Form
@@ -79,12 +90,24 @@ function FormContent() {
         <div className={styles.content}>
           <form className={styles.form}>
             <Section headerText="Общая информация">
-              <TextFieldsBlock data={infoSectionData} />
+              <TextFieldsBlock data={infoSectionData1} />
               <DateAndText
                 label="Дата и место рождения"
                 nameDate={`${infoSectionScopeName}.birthdate`}
                 nameText={`${infoSectionScopeName}.birthplace`}
               />
+              <TextFieldsBlock data={infoSectionData2} />
+            </Section>
+            <Section
+              headerText="Сведения о регистрации в качестве индивидуального предпринимателя"
+              containerClassName={styles.registrationSection}
+            >
+              <DateAndText
+                label="Дата и номер"
+                nameDate={`${registrationSectionScopeName}.date`}
+                nameText={`${registrationSectionScopeName}.number`}
+              />
+              <TextFieldsBlock data={registrationSectionData} />
             </Section>
             <button type="button" onClick={handleSubmit}>Submit</button>
           </form>
