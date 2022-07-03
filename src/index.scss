@@ -27,6 +27,16 @@ body {
   min-height: 100vh;
 }
 
+$color-primary: #0057b6;
+
+.button-base {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 20px;
+}
+
 $form-section-gap: 48px;
 $form-section-row-gap: 16px;
 $form-section-row-label-width: 174px;

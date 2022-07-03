@@ -1,0 +1,8 @@
+@import "../../../../index.scss";
+
+.button {
+  @extend .button-base;
+  margin-top: $form-section-gap;
+  color: white;
+  background-color: $color-primary;
+}

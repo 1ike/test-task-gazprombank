@@ -8,6 +8,7 @@ import TextFieldsBlock from './TextFieldsBlock';
 import DateAndText from './rows/DateAndText';
 // import avatar from '../../../assets/images/avatar.svg';
 import Checkbox from './rows/Checkbox/index';
+import ButtonPrimary from '../uiKit/buttons/ButtonPrimary';
 
 
 // interface ButtonProps {
@@ -138,7 +139,7 @@ function FormContent() {
                 name="beneficialOwner"
               />
             </Section>
-            <button type="button" onClick={handleSubmit}>Submit</button>
+            <ButtonPrimary onClick={handleSubmit}>Перейти к формированию документов</ButtonPrimary>
           </form>
           <Progress headerText="Заполнение анкеты" data={data} />
         </div>
