@@ -6,10 +6,9 @@ import Progress, { ProgressStatus } from './Progress';
 import Section from './Section';
 import TextFieldsBlock from './fieldBlocks/TextFieldsBlock';
 import DateAndText from './rows/DateAndText';
-// import avatar from '../../../assets/images/avatar.svg';
 import CheckboxFieldsBlock from './fieldBlocks/CheckboxFieldsBlock';
-import Checkbox from './rows/Checkbox/index';
 import ButtonPrimary from '../uiKit/buttons/ButtonPrimary';
+import LicenseSection from './LicenseSection';
 
 
 // interface ButtonProps {
@@ -124,6 +123,7 @@ function FormContent() {
               />
               <TextFieldsBlock data={infoSectionData2} />
             </Section>
+
             <Section
               headerText="Сведения о регистрации в качестве индивидуального предпринимателя"
               containerClassName={styles.sectionMargin}
@@ -135,16 +135,19 @@ function FormContent() {
               />
               <TextFieldsBlock data={registrationSectionData} />
             </Section>
-            <Section containerClassName={styles.sectionMargin}>
-              <Checkbox
-                label="Моя компания осуществляет деятельность, подлежащую лицензированиюв соответствии с законодательством РФ"
-                name="licenses"
-              />
-            </Section>
+
+            <LicenseSection containerClassName={styles.sectionMargin} />
+
             <Section containerClassName={styles.sectionMargin}>
               <CheckboxFieldsBlock data={questionnaireSectionData} />
             </Section>
-            <ButtonPrimary onClick={handleSubmit}>Перейти к формированию документов</ButtonPrimary>
+
+            <ButtonPrimary
+              onClick={handleSubmit}
+              buttonClassName={styles.submitButton}
+            >
+              Перейти к формированию документов
+            </ButtonPrimary>
           </form>
           <Progress headerText="Заполнение анкеты" data={data} />
         </div>

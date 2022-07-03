@@ -66,7 +66,7 @@ $form-section-row-field-field-gap: 8px;
 
   &-row {
     display: flex;
-    align-items: flex-start;
+    align-items: baseline;
     gap: $form-section-row-label-field-gap;
 
     &-label-typography {
@@ -83,6 +83,7 @@ $form-section-row-field-field-gap: 8px;
     }
 
     &-field {
+      height: 32px;
       border-radius: 5px;
       border: 1px solid #d7dee9;
     }
