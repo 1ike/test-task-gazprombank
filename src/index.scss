@@ -21,6 +21,10 @@ body {
   box-sizing: border-box;
 }
 
+p {
+  margin: 0;
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -80,6 +84,7 @@ $form-section-row-field-field-gap: 8px;
       @extend .form-section-row-label-typography;
       display: inline-block;
       width: $form-section-row-label-width;
+      flex-shrink: 0;
     }
 
     &-field {

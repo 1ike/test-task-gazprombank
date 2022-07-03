@@ -1,6 +1,19 @@
 @import "../../../index.scss";
 
+.cards {
+  margin-top: 24px;
+}
+
+.card {
+  margin-top: 8px;
+}
+
 .cardsHeader {
+  @extend .header-3;
+  margin: 0;
+}
+
+.formCardHeader {
   @extend .header-3;
   margin: 0 0 16px 0;
 }
