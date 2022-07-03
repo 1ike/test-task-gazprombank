@@ -4,9 +4,10 @@ import { Form } from 'react-final-form';
 import styles from './Form.module.scss';
 import Progress, { ProgressStatus } from './Progress';
 import Section from './Section';
-import TextFieldsBlock from './TextFieldsBlock';
+import TextFieldsBlock from './fieldBlocks/TextFieldsBlock';
 import DateAndText from './rows/DateAndText';
 // import avatar from '../../../assets/images/avatar.svg';
+import CheckboxFieldsBlock from './fieldBlocks/CheckboxFieldsBlock';
 import Checkbox from './rows/Checkbox/index';
 import ButtonPrimary from '../uiKit/buttons/ButtonPrimary';
 
@@ -80,6 +81,29 @@ const registrationSectionData = [
   },
 ];
 
+const questionnaireSectionScopeName = 'questionnaire';
+const questionnaireSectionData = [
+  {
+    name: `${questionnaireSectionScopeName}.website`,
+    label: 'Предоставление услуг с использованием сайта в сети Интернет',
+  },
+  {
+    name: `${questionnaireSectionScopeName}.pdl`,
+    label: 'Статус публичного должностного лица (ПДЛ)',
+  },
+  {
+    name: `${questionnaireSectionScopeName}.beneficiaries`,
+    label: 'Наличие выгодоприобретателей',
+  },
+  {
+    name: `${questionnaireSectionScopeName}.representatives`,
+    label: 'Наличие представителей',
+  },
+  {
+    name: `${questionnaireSectionScopeName}.beneficialOwner`,
+    label: 'Наличие бенефициарного владельца',
+  },
+];
 
 function FormContent() {
   return (
@@ -118,26 +142,7 @@ function FormContent() {
               />
             </Section>
             <Section containerClassName={styles.sectionMargin}>
-              <Checkbox
-                label="Предоставление услуг с использованием сайта в сети Интернет"
-                name="website"
-              />
-              <Checkbox
-                label="Статус публичного должностного лица (ПДЛ)"
-                name="pdl"
-              />
-              <Checkbox
-                label="Наличие выгодоприобретателей"
-                name="beneficiaries"
-              />
-              <Checkbox
-                label="Наличие представителей"
-                name="representatives"
-              />
-              <Checkbox
-                label="Наличие бенефициарного владельца"
-                name="beneficialOwner"
-              />
+              <CheckboxFieldsBlock data={questionnaireSectionData} />
             </Section>
             <ButtonPrimary onClick={handleSubmit}>Перейти к формированию документов</ButtonPrimary>
           </form>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextRow from '../rows/Text';
+import TextRow from '../../rows/Text';
 import styles from './TextFieldsBlock.module.scss';
 
 
