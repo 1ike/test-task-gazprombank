@@ -27,6 +27,22 @@ body {
   min-height: 100vh;
 }
 
+$text-color: #262c40;
+
+.header-2 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20px;
+  color: $text-color;
+}
+
+.header-3 {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  color: $text-color;
+}
+
 $color-primary: #0057b6;
 
 .button-base {
@@ -45,10 +61,7 @@ $form-section-row-field-field-gap: 8px;
 
 .form-section {
   &-label-typography {
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 20px;
-    color: #262c40;
+    @extend .header-2;
   }
 
   &-row {
@@ -59,7 +72,7 @@ $form-section-row-field-field-gap: 8px;
     &-label-typography {
       font-size: 14px;
       line-height: 16px;
-      color: #262c40;
+      color: $text-color;
       opacity: 0.7;
     }
 
