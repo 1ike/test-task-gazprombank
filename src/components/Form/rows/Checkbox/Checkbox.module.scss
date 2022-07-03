@@ -1,0 +1,33 @@
+@import "../../../../index.scss";
+
+.label {
+  @extend .form-section-row;
+  @extend .form-section-label-typography;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fieldWrapper {
+  width: 36px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.field {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+
+  &:checked ~ .checked {
+    opacity: 1;
+  }
+
+  &:checked ~ .unchecked {
+    opacity: 0;
+  }
+}
+
+.checked,
+.unchecked {
+  position: absolute;
+}

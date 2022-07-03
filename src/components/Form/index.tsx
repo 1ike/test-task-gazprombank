@@ -7,6 +7,7 @@ import Section from './Section';
 import TextFieldsBlock from './TextFieldsBlock';
 import DateAndText from './rows/DateAndText';
 // import avatar from '../../../assets/images/avatar.svg';
+import Checkbox from './rows/Checkbox/index';
 
 
 // interface ButtonProps {
@@ -100,7 +101,7 @@ function FormContent() {
             </Section>
             <Section
               headerText="Сведения о регистрации в качестве индивидуального предпринимателя"
-              containerClassName={styles.registrationSection}
+              containerClassName={styles.sectionMargin}
             >
               <DateAndText
                 label="Дата и номер"
@@ -108,6 +109,34 @@ function FormContent() {
                 nameText={`${registrationSectionScopeName}.number`}
               />
               <TextFieldsBlock data={registrationSectionData} />
+            </Section>
+            <Section containerClassName={styles.sectionMargin}>
+              <Checkbox
+                label="Моя компания осуществляет деятельность, подлежащую лицензированиюв соответствии с законодательством РФ"
+                name="licenses"
+              />
+            </Section>
+            <Section containerClassName={styles.sectionMargin}>
+              <Checkbox
+                label="Предоставление услуг с использованием сайта в сети Интернет"
+                name="website"
+              />
+              <Checkbox
+                label="Статус публичного должностного лица (ПДЛ)"
+                name="pdl"
+              />
+              <Checkbox
+                label="Наличие выгодоприобретателей"
+                name="beneficiaries"
+              />
+              <Checkbox
+                label="Наличие представителей"
+                name="representatives"
+              />
+              <Checkbox
+                label="Наличие бенефициарного владельца"
+                name="beneficialOwner"
+              />
             </Section>
             <button type="button" onClick={handleSubmit}>Submit</button>
           </form>
