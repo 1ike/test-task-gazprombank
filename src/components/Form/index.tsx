@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 
 import styles from './Form.module.scss';
-import Progress, { ProgressStatus } from './Progress';
+import Progress, { ProgressStatus, SectionName, Statuses } from './Progress';
 import Section from './Section';
 import TextFieldsBlock from './fieldBlocks/TextFieldsBlock';
 import DateAndText from './rows/DateAndText';
@@ -12,64 +12,53 @@ import LicenseSection from './LicenseSection';
 import Modal from '../uiKit/Modal';
 
 
-// interface ButtonProps {
-//   children: React.ReactNode,
-// }
-
-enum SectionName {
-  Info = 'Информация',
-  Registration = 'Сведения',
-  Licenses = 'Лицензии',
-  Questionnaire = 'Опросник',
-}
-
-
-const data = [
-  {
-    name: SectionName.Info,
-    status: ProgressStatus.InProgress,
-  },
-  {
-    name: SectionName.Registration,
-    status: ProgressStatus.InProgress,
-  },
-  {
-    name: SectionName.Licenses,
-    status: ProgressStatus.Success,
-  },
-  {
-    name: SectionName.Questionnaire,
-    status: ProgressStatus.Error,
-  },
+const sectionNames = [
+  SectionName.Info,
+  SectionName.Registration,
+  SectionName.Licenses,
+  SectionName.Questionnaire,
 ];
+
+const sectionProgressStatuses = sectionNames.reduce(
+  (acc, name) => ({ ...acc, [name]: ProgressStatus.InProgress }),
+  {} as Statuses,
+);
+
+const required = (value: string) => (value?.trim() ? undefined : 'Поле не заполнено');
 
 const infoSectionScopeName = 'info';
 const infoSectionData1 = [
   {
     name: `${infoSectionScopeName}.inn`,
     label: 'ИНН, ОГРН или ОГРНИП',
+    validate: required,
   },
   {
     name: `${infoSectionScopeName}.fullname`,
     label: 'Фамилия, имя и отчество',
+    validate: required,
   },
 ];
 const infoSectionData2 = [
   {
     name: `${infoSectionScopeName}.citizenship`,
     label: 'Гражданство',
+    validate: required,
   },
   {
     name: `${infoSectionScopeName}.snils`,
     label: 'СНИЛС (при наличии)',
+    validate: required,
   },
   {
     name: `${infoSectionScopeName}.registrationAddress`,
     label: 'Адрес места жительства (регистрации)',
+    validate: required,
   },
   {
     name: `${infoSectionScopeName}.actualAddress`,
     label: 'Адрес места пребывания (если отличается от места жительства)',
+    validate: required,
   },
 ];
 
@@ -78,6 +67,7 @@ const registrationSectionData = [
   {
     name: `${registrationSectionScopeName}.place`,
     label: 'Место регистрации',
+    validate: required,
   },
 ];
 
@@ -115,6 +105,9 @@ function FormContent() {
     setModalActive(true);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [progressStatuses, setProgressStatuses] = useState(sectionProgressStatuses);
+
   return (
     <Form
       onSubmit={onSubmit}
@@ -130,6 +123,8 @@ function FormContent() {
                 label="Дата и место рождения"
                 nameDate={`${infoSectionScopeName}.birthdate`}
                 nameText={`${infoSectionScopeName}.birthplace`}
+                validateDate={required}
+                validateText={required}
               />
               <TextFieldsBlock data={infoSectionData2} />
             </Section>
@@ -142,6 +137,8 @@ function FormContent() {
                 label="Дата и номер"
                 nameDate={`${registrationSectionScopeName}.date`}
                 nameText={`${registrationSectionScopeName}.number`}
+                validateDate={required}
+                validateText={required}
               />
               <TextFieldsBlock data={registrationSectionData} />
             </Section>
@@ -159,7 +156,11 @@ function FormContent() {
               Перейти к формированию документов
             </ButtonPrimary>
           </form>
-          <Progress headerText="Заполнение анкеты" data={data} />
+          <Progress
+            headerText="Заполнение анкеты"
+            names={sectionNames}
+            statuses={progressStatuses}
+          />
           <Modal modalActive={modalActive} onClose={closeModal}>
             <pre>{JSON.stringify(formData, null, ' ')}</pre>
           </Modal>
