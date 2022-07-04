@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 
 import styles from './Form.module.scss';
@@ -9,6 +9,7 @@ import DateAndText from './rows/DateAndText';
 import CheckboxFieldsBlock from './fieldBlocks/CheckboxFieldsBlock';
 import ButtonPrimary from '../uiKit/buttons/ButtonPrimary';
 import LicenseSection from './LicenseSection';
+import Modal from '../uiKit/Modal';
 
 
 // interface ButtonProps {
@@ -105,9 +106,18 @@ const questionnaireSectionData = [
 ];
 
 function FormContent() {
+  const [modalActive, setModalActive] = useState(false);
+  const closeModal = () => setModalActive(false);
+
+  const [formData, setFormData] = useState({});
+  const onSubmit = (values: Record<string, any>) => {
+    setFormData(values);
+    setModalActive(true);
+  };
+
   return (
     <Form
-      onSubmit={(values) => { console.log('values = ', values); }}
+      onSubmit={onSubmit}
       // initialValues={{ stooge: 'larry', employed: false }}
       render={({
         handleSubmit,
@@ -150,6 +160,9 @@ function FormContent() {
             </ButtonPrimary>
           </form>
           <Progress headerText="Заполнение анкеты" data={data} />
+          <Modal modalActive={modalActive} onClose={closeModal}>
+            <pre>{JSON.stringify(formData, null, ' ')}</pre>
+          </Modal>
         </div>
       )}
     />

@@ -1,0 +1,40 @@
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+
+  &__content {
+    max-height: calc(100vh - 20px);
+    min-width: 300px;
+    max-width: 500px;
+    margin: 20px;
+    padding: 30px 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    overflow: auto;
+    transition: all 0.3s ease-in-out;
+  }
+
+  $marginVertical: 20px;
+  $paddingVertical: 20px;
+  $border: 1px solid rgb(207, 207, 207);
+
+  &__header {
+    margin-bottom: $marginVertical;
+    padding-bottom: $paddingVertical;
+    border-bottom: $border;
+  }
+
+  &__footer {
+    margin-top: $marginVertical;
+    padding-top: $paddingVertical;
+    border-top: $border;
+  }
+}
