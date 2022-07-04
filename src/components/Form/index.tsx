@@ -148,7 +148,7 @@ function FormContent() {
 
             <LicenseSection containerClassName={styles.sectionMargin} />
 
-            <Section containerClassName={styles.sectionMargin}>
+            <Section containerClassName={styles.questionnaireSectionMargin}>
               <CheckboxFieldsBlock data={questionnaireSectionData} />
             </Section>
 

@@ -1,0 +1,12 @@
+@import "../../../../index.scss";
+
+.button {
+  @extend .button-base;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  color: $color-primary;
+  background-color: transparent;
+}

@@ -9,8 +9,12 @@ import TexAndText from '../rows/TextAndText';
 import DateField from '../fields/DateField';
 import ButtonPrimary from '../../uiKit/buttons/ButtonPrimary';
 import ButtonSecondary from '../../uiKit/buttons/ButtonSecondary';
+import ButtonClear from '../../uiKit/buttons/ButtonClear';
 import Section from '../Section';
 import LicenseViewBlock from './LicenseViewBlock';
+import editIcon from '../../../assets/images/edit.svg';
+import deleteIcon from '../../../assets/images/delete.svg';
+import plusIcon from '../../../assets/images/plus.svg';
 
 
 enum Label {
@@ -80,6 +84,16 @@ function LicenseSection({ containerClassName }: Props) {
           <Section>
             <LicenseViewBlock data={transformedData[0]} />
           </Section>
+          <div className={styles.viewButtons}>
+            <ButtonClear>
+              <img src={editIcon} alt="" />
+              Редактировать
+            </ButtonClear>
+            <ButtonClear>
+              <img src={deleteIcon} alt="" />
+              Удалить
+            </ButtonClear>
+          </div>
         </Card>
         <Card className={styles.card}>
           <h4 className={styles.formCardHeader}>Добавить новую</h4>
@@ -118,6 +132,10 @@ function LicenseSection({ containerClassName }: Props) {
             <ButtonSecondary buttonClassName={styles.button}>Отменить</ButtonSecondary>
           </div>
         </Card>
+        <ButtonSecondary buttonClassName={styles.addButton}>
+          <img src={plusIcon} alt="" />
+          Добавить ещё одну лицензию
+        </ButtonSecondary>
       </div>
     </div>
   );

@@ -40,9 +40,19 @@
   margin-top: 23px;
 }
 
+$verticalPadding: 8px;
 .button.button {
-  $verticalPadding: 8px;
-
   padding-top: $verticalPadding;
   padding-bottom: $verticalPadding;
+}
+
+.addButton.addButton {
+  margin-top: 24px;
+  padding: $verticalPadding 12px;
+}
+
+.viewButtons {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
 }

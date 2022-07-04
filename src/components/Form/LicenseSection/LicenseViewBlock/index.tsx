@@ -1,7 +1,7 @@
 import React from 'react';
 
 import LicenseViewRow from './LicenseViewRow';
-import styles from './TextFieldsBlock.module.scss';
+import styles from './LicenseViewBlock.module.scss';
 
 
 interface LicenseData {

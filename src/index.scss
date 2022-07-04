@@ -50,9 +50,13 @@ $text-color: #262c40;
 $color-primary: #0057b6;
 
 .button-base {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 10px 24px;
   border: none;
   border-radius: 8px;
+  font-family: inherit;
   font-size: 16px;
   line-height: 20px;
 }
