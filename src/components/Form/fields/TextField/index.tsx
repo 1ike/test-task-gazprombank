@@ -2,7 +2,7 @@ import React from 'react';
 import { FieldValidator } from 'final-form';
 import { Field, FieldRenderProps } from 'react-final-form';
 
-import styles from './DateField.module.scss';
+import styles from './TextField.module.scss';
 
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   validate?: FieldValidator<string>,
 }
 
-function DateField({ name, validate }: Props) {
+function TextField({ name, validate }: Props) {
   return (
     <Field name={name} validate={validate}>
       {({ input, meta }: FieldRenderProps<any, HTMLElement, any>) => (
@@ -19,7 +19,7 @@ function DateField({ name, validate }: Props) {
             name={input.name}
             value={input.value}
             onChange={input.onChange}
-            type="date"
+            type="text"
             className="form-section-row-field"
           />
           {meta.touched && meta.error && <span className="field-error">{meta.error}</span>}
@@ -29,4 +29,4 @@ function DateField({ name, validate }: Props) {
   );
 }
 
-export default DateField;
+export default TextField;

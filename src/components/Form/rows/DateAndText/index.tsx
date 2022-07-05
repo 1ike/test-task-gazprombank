@@ -1,9 +1,9 @@
 import React from 'react';
-import { Field } from 'react-final-form';
 import { FieldValidator } from 'final-form';
 
 import styles from './DateAndText.module.scss';
 import DateField from '../../fields/DateField';
+import TextField from '../../fields/TextField';
 
 
 interface Props {
@@ -25,11 +25,8 @@ function DateAndText({
           name={nameDate}
           validate={validateDate}
         />
-        <Field
+        <TextField
           name={nameText}
-          component="input"
-          type="text"
-          className="form-section-row-field-base"
           validate={validateText}
         />
       </div>
