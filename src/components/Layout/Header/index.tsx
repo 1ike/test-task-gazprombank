@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import styles from './Header.module.scss';
 import avatar from '../../../assets/images/avatar.svg';
 import notification from '../../../assets/images/notification.svg';
 import exit from '../../../assets/images/exit.svg';
+import { UserContext } from '../../../contexts/User';
 
 interface ButtonProps {
   children: React.ReactNode,
@@ -18,14 +19,15 @@ function Button({ children }: ButtonProps) {
 }
 
 function Header() {
-  return (
+  const { user } = useContext(UserContext);
 
+  return (
     <header className={styles.header}>
       <a href="#" className={styles.logo}>Logo</a>
       <div className={styles.user}>
         <Button>
           <img src={avatar} alt="Аватар" />
-          Фамилия И.О.
+          {user.fullname}
         </Button>
         <Button>
           <img src={notification} alt="Уведомление" />
