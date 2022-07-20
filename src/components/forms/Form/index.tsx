@@ -3,13 +3,12 @@ import { Form } from 'react-final-form';
 
 import styles from './Form.module.scss';
 import Progress, { ProgressStatus, SectionName, Statuses } from './Progress';
-import Section from './sections/Section';
-import TextFieldsBlock from '../fieldBlocks/TextFieldsBlock';
-import DateAndText from '../rows/DateAndText';
 import ButtonPrimary from '../../uiKit/buttons/ButtonPrimary';
 import LicenseSection from './sections/LicenseSection';
 import Modal from '../../uiKit/Modal';
 import QuestionnaireSection from './sections/QuestionnaireSection';
+import InfoSection from './sections/InfoSection';
+import RegistrationSection from './sections/RegistrationSection';
 
 
 const sectionNames = [
@@ -24,52 +23,6 @@ const sectionProgressStatuses = sectionNames.reduce(
   {} as Statuses,
 );
 
-const required = (value: string) => (value?.trim() ? undefined : 'Поле не заполнено');
-
-const infoSectionScopeName = 'info';
-const infoSectionData1 = [
-  {
-    name: `${infoSectionScopeName}.inn`,
-    label: 'ИНН, ОГРН или ОГРНИП',
-    validate: required,
-  },
-  {
-    name: `${infoSectionScopeName}.fullname`,
-    label: 'Фамилия, имя и отчество',
-    validate: required,
-  },
-];
-const infoSectionData2 = [
-  {
-    name: `${infoSectionScopeName}.citizenship`,
-    label: 'Гражданство',
-    validate: required,
-  },
-  {
-    name: `${infoSectionScopeName}.snils`,
-    label: 'СНИЛС (при наличии)',
-    validate: required,
-  },
-  {
-    name: `${infoSectionScopeName}.registrationAddress`,
-    label: 'Адрес места жительства (регистрации)',
-    validate: required,
-  },
-  {
-    name: `${infoSectionScopeName}.actualAddress`,
-    label: 'Адрес места пребывания (если отличается от места жительства)',
-    validate: required,
-  },
-];
-
-const registrationSectionScopeName = 'registration';
-const registrationSectionData = [
-  {
-    name: `${registrationSectionScopeName}.place`,
-    label: 'Место регистрации',
-    validate: required,
-  },
-];
 
 function FormContent() {
   const [modalActive, setModalActive] = useState(false);
@@ -93,35 +46,13 @@ function FormContent() {
       }) => (
         <div className={styles.content}>
           <form className={styles.form}>
-            <Section headerText="Общая информация">
-              <TextFieldsBlock data={infoSectionData1} />
-              <DateAndText
-                label="Дата и место рождения"
-                nameDate={`${infoSectionScopeName}.birthdate`}
-                nameText={`${infoSectionScopeName}.birthplace`}
-                validateDate={required}
-                validateText={required}
-              />
-              <TextFieldsBlock data={infoSectionData2} />
-            </Section>
+            <InfoSection />
 
-            <Section
-              headerText="Сведения о регистрации в качестве индивидуального предпринимателя"
-              containerClassName={styles.sectionMargin}
-            >
-              <DateAndText
-                label="Дата и номер"
-                nameDate={`${registrationSectionScopeName}.date`}
-                nameText={`${registrationSectionScopeName}.number`}
-                validateDate={required}
-                validateText={required}
-              />
-              <TextFieldsBlock data={registrationSectionData} />
-            </Section>
+            <RegistrationSection containerClassName={styles.sectionMargin} />
 
             <LicenseSection containerClassName={styles.sectionMargin} />
 
-            <QuestionnaireSection />
+            <QuestionnaireSection containerClassName={styles.questionnaireSectionMargin} />
 
             <ButtonPrimary
               onClick={handleSubmit}

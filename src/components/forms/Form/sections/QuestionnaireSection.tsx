@@ -1,8 +1,7 @@
 import React from 'react';
 
-import styles from './QuestionnaireSection.module.scss';
-import Section from '../Section';
-import CheckboxFieldsBlock from '../../../fieldBlocks/CheckboxFieldsBlock';
+import Section from './Section';
+import CheckboxFieldsBlock from '../../fieldBlocks/CheckboxFieldsBlock';
 
 
 const questionnaireSectionScopeName = 'questionnaire';
@@ -29,9 +28,9 @@ const questionnaireSectionData = [
   },
 ];
 
-function QuestionnaireSection() {
+function QuestionnaireSection({ containerClassName }: { containerClassName?: string }) {
   return (
-    <Section containerClassName={styles.sectionMargin}>
+    <Section containerClassName={containerClassName}>
       <CheckboxFieldsBlock data={questionnaireSectionData} />
     </Section>
   );
