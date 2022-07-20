@@ -5,6 +5,7 @@ import styles from './Form.module.scss';
 import Progress, { ProgressStatus, SectionName, Statuses } from './Progress';
 import ButtonPrimary from '../../uiKit/buttons/ButtonPrimary';
 import LicenseSection from './sections/LicenseSection';
+import { LicensesProvider } from './sections/LicenseSection/contexts/Licenses';
 import Modal from '../../uiKit/Modal';
 import QuestionnaireSection from './sections/QuestionnaireSection';
 import InfoSection from './sections/InfoSection';
@@ -50,7 +51,9 @@ function FormContent() {
 
             <RegistrationSection containerClassName={styles.sectionMargin} />
 
-            <LicenseSection containerClassName={styles.sectionMargin} />
+            <LicensesProvider>
+              <LicenseSection containerClassName={styles.sectionMargin} />
+            </LicensesProvider>
 
             <QuestionnaireSection containerClassName={styles.questionnaireSectionMargin} />
 

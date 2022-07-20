@@ -1,0 +1,16 @@
+@import "../../../../../../index.scss";
+
+.card {
+  margin-top: 8px;
+}
+
+.cardHeader {
+  @extend .header-3;
+  margin: 0 0 16px 0;
+}
+
+.viewButtons {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+}
