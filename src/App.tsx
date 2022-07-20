@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Layout from './components/Layout';
-import Form from './components/Form';
+import Form from './components/forms/Form';
 import './App.scss';
 import { UserProvider } from './contexts/User';
 

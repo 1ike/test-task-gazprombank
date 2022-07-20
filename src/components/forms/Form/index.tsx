@@ -4,12 +4,12 @@ import { Form } from 'react-final-form';
 import styles from './Form.module.scss';
 import Progress, { ProgressStatus, SectionName, Statuses } from './Progress';
 import Section from './Section';
-import TextFieldsBlock from './fieldBlocks/TextFieldsBlock';
-import DateAndText from './rows/DateAndText';
-import CheckboxFieldsBlock from './fieldBlocks/CheckboxFieldsBlock';
-import ButtonPrimary from '../uiKit/buttons/ButtonPrimary';
+import TextFieldsBlock from '../fieldBlocks/TextFieldsBlock';
+import DateAndText from '../rows/DateAndText';
+import CheckboxFieldsBlock from '../fieldBlocks/CheckboxFieldsBlock';
+import ButtonPrimary from '../../uiKit/buttons/ButtonPrimary';
 import LicenseSection from './LicenseSection';
-import Modal from '../uiKit/Modal';
+import Modal from '../../uiKit/Modal';
 
 
 const sectionNames = [
