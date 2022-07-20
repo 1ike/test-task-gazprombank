@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './QuestionnaireSection.module.scss';
 import Section from '../Section';
-import CheckboxFieldsBlock from '../../fieldBlocks/CheckboxFieldsBlock';
+import CheckboxFieldsBlock from '../../../fieldBlocks/CheckboxFieldsBlock';
 
 
 const questionnaireSectionScopeName = 'questionnaire';

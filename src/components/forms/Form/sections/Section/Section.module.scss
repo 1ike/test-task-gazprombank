@@ -1,7 +1,13 @@
 @import "../../../../../index.scss";
 
-.fields {
+.rows {
   display: flex;
   flex-direction: column;
   gap: $form-section-row-gap;
+}
+
+.header {
+  margin-top: 0;
+  margin-bottom: 20px;
+  @extend .form-section-label-typography;
 }

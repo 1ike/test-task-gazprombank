@@ -3,13 +3,13 @@ import { Form } from 'react-final-form';
 
 import styles from './Form.module.scss';
 import Progress, { ProgressStatus, SectionName, Statuses } from './Progress';
-import Section from './Section';
+import Section from './sections/Section';
 import TextFieldsBlock from '../fieldBlocks/TextFieldsBlock';
 import DateAndText from '../rows/DateAndText';
 import ButtonPrimary from '../../uiKit/buttons/ButtonPrimary';
-import LicenseSection from './LicenseSection';
+import LicenseSection from './sections/LicenseSection';
 import Modal from '../../uiKit/Modal';
-import QuestionnaireSection from './QuestionnaireSection';
+import QuestionnaireSection from './sections/QuestionnaireSection';
 
 
 const sectionNames = [

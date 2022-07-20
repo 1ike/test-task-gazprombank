@@ -2,19 +2,19 @@ import React from 'react';
 import { Field } from 'react-final-form';
 
 import styles from './LicenseSection.module.scss';
-import Card from '../../../uiKit/Card';
-import TextFieldsBlock from '../../fieldBlocks/TextFieldsBlock';
-import Checkbox from '../../rows/Checkbox';
-import TexAndText from '../../rows/TextAndText';
-import DateField from '../../fields/DateField';
-import ButtonPrimary from '../../../uiKit/buttons/ButtonPrimary';
-import ButtonSecondary from '../../../uiKit/buttons/ButtonSecondary';
-import ButtonClear from '../../../uiKit/buttons/ButtonClear';
+import Card from '../../../../uiKit/Card';
+import TextFieldsBlock from '../../../fieldBlocks/TextFieldsBlock';
+import Checkbox from '../../../rows/Checkbox';
+import TexAndText from '../../../rows/TextAndText';
+import DateField from '../../../fields/DateField';
+import ButtonPrimary from '../../../../uiKit/buttons/ButtonPrimary';
+import ButtonSecondary from '../../../../uiKit/buttons/ButtonSecondary';
+import ButtonClear from '../../../../uiKit/buttons/ButtonClear';
 import Section from '../Section';
 import LicenseViewBlock from './LicenseViewBlock';
-import editIcon from '../../../../assets/images/edit.svg';
-import deleteIcon from '../../../../assets/images/delete.svg';
-import plusIcon from '../../../../assets/images/plus.svg';
+import editIcon from '../../../../../assets/images/edit.svg';
+import deleteIcon from '../../../../../assets/images/delete.svg';
+import plusIcon from '../../../../../assets/images/plus.svg';
 
 
 enum Label {
