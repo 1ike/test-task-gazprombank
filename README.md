@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# Gazprombank test job (пока не закончено)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+&nbsp;
+## Задание
 
-## Available Scripts
+Использовать стек: react, ts, context (состояние), scss и для формы использовать react final form.
 
-In the project directory, you can run:
+Локальная копия Figma есть в корне проекта `/gazprombank.fig`.  
+[Ссылка на оригинал (возможно уже не будет работать, но зато там есть примечания)](https://www.figma.com/file/EHNDnHLHU5fHFZ4Njnby8I/%D0%A2%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B5-%D0%93%D0%9F%D0%91?node-id=3%3A2).
 
-### `npm start`
+В хедере и сайдбаре заглушки, важна только сама форма.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+&nbsp;
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Демо
 
-### `npm test`
+[https://test-task-gazprombank.vercel.app/](https://test-task-gazprombank.vercel.app/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+&nbsp;
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Использование
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Установите зависимости:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm install`
 
-### `npm run eject`
+&nbsp;
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Для сборки скрипта введите
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`npm run build`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+&nbsp;
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Для разработки или оценки результата ([на живой странице](http://localhost:8080/)) введите
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+`npm run start`
