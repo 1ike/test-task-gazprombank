@@ -6,10 +6,10 @@ import Progress, { ProgressStatus, SectionName, Statuses } from './Progress';
 import Section from './Section';
 import TextFieldsBlock from '../fieldBlocks/TextFieldsBlock';
 import DateAndText from '../rows/DateAndText';
-import CheckboxFieldsBlock from '../fieldBlocks/CheckboxFieldsBlock';
 import ButtonPrimary from '../../uiKit/buttons/ButtonPrimary';
 import LicenseSection from './LicenseSection';
 import Modal from '../../uiKit/Modal';
+import QuestionnaireSection from './QuestionnaireSection';
 
 
 const sectionNames = [
@@ -71,30 +71,6 @@ const registrationSectionData = [
   },
 ];
 
-const questionnaireSectionScopeName = 'questionnaire';
-const questionnaireSectionData = [
-  {
-    name: `${questionnaireSectionScopeName}.website`,
-    label: 'Предоставление услуг с использованием сайта в сети Интернет',
-  },
-  {
-    name: `${questionnaireSectionScopeName}.pdl`,
-    label: 'Статус публичного должностного лица (ПДЛ)',
-  },
-  {
-    name: `${questionnaireSectionScopeName}.beneficiaries`,
-    label: 'Наличие выгодоприобретателей',
-  },
-  {
-    name: `${questionnaireSectionScopeName}.representatives`,
-    label: 'Наличие представителей',
-  },
-  {
-    name: `${questionnaireSectionScopeName}.beneficialOwner`,
-    label: 'Наличие бенефициарного владельца',
-  },
-];
-
 function FormContent() {
   const [modalActive, setModalActive] = useState(false);
   const closeModal = () => setModalActive(false);
@@ -145,9 +121,7 @@ function FormContent() {
 
             <LicenseSection containerClassName={styles.sectionMargin} />
 
-            <Section containerClassName={styles.questionnaireSectionMargin}>
-              <CheckboxFieldsBlock data={questionnaireSectionData} />
-            </Section>
+            <QuestionnaireSection />
 
             <ButtonPrimary
               onClick={handleSubmit}
