@@ -13,6 +13,7 @@ import plusIcon from '../../../../../assets/images/plus.svg';
 import LicenseCard from './LicenseCard';
 import Licenses from './Licenses';
 import { Label } from './shared';
+import Condition from '../../../Condition';
 
 
 const licenseSectionScopeName = 'license';
@@ -27,6 +28,8 @@ const licenseSectionTextBlockData = [
   },
 ];
 
+const licensesSwitchName = 'licensesSwitch';
+
 
 interface Props {
   containerClassName?: string,
@@ -37,52 +40,54 @@ function LicenseSection({ containerClassName }: Props) {
     <div className={containerClassName}>
       <Checkbox
         label="Моя компания осуществляет деятельность, подлежащую лицензированию в соответствии с законодательством РФ"
-        name="licenses"
+        name={licensesSwitchName}
       />
-      <div className={styles.cards}>
-        <h3 className={styles.cardsHeader}>Ваши лицензии:</h3>
-        <Licenses />
-        <LicenseCard title="Добавить новую">
-          <Section>
-            <TexAndText
-              label="Вид и номер документа"
-              name1={`${licenseSectionScopeName}.type`}
-              name2={`${licenseSectionScopeName}.number`}
-            />
-            <TextFieldsBlock data={licenseSectionTextBlockData} />
-            <div className="form-section-row">
-              <label className="form-section-row-label-base">
-                Дата выдачи документа и срок действия
-              </label>
-              <div className={styles.fields}>
-                <DateField
-                  name={`${licenseSectionScopeName}.dateOfIssue`}
-                />
-                <DateField
-                  name={`${licenseSectionScopeName}.validityPeriod`}
-                />
-                <label className={styles.checkbox}>
-                  <Field
-                    name={`${licenseSectionScopeName}.unlimited`}
-                    component="input"
-                    type="checkbox"
-                    className={styles.checkbox__input}
-                  />
-                  Бессрочно
+      <Condition<boolean> when={licensesSwitchName} is>
+        <div className={styles.cards}>
+          <h3 className={styles.cardsHeader}>Ваши лицензии:</h3>
+          <Licenses />
+          <LicenseCard title="Добавить новую">
+            <Section>
+              <TexAndText
+                label="Вид и номер документа"
+                name1={`${licenseSectionScopeName}.type`}
+                name2={`${licenseSectionScopeName}.number`}
+              />
+              <TextFieldsBlock data={licenseSectionTextBlockData} />
+              <div className="form-section-row">
+                <label className="form-section-row-label-base">
+                  Дата выдачи документа и срок действия
                 </label>
+                <div className={styles.fields}>
+                  <DateField
+                    name={`${licenseSectionScopeName}.dateOfIssue`}
+                  />
+                  <DateField
+                    name={`${licenseSectionScopeName}.validityPeriod`}
+                  />
+                  <label className={styles.checkbox}>
+                    <Field
+                      name={`${licenseSectionScopeName}.unlimited`}
+                      component="input"
+                      type="checkbox"
+                      className={styles.checkbox__input}
+                    />
+                    Бессрочно
+                  </label>
+                </div>
               </div>
+            </Section>
+            <div className={styles.buttonBlock}>
+              <ButtonPrimary buttonClassName={styles.button}>Добавить</ButtonPrimary>
+              <ButtonSecondary buttonClassName={styles.button}>Отменить</ButtonSecondary>
             </div>
-          </Section>
-          <div className={styles.buttonBlock}>
-            <ButtonPrimary buttonClassName={styles.button}>Добавить</ButtonPrimary>
-            <ButtonSecondary buttonClassName={styles.button}>Отменить</ButtonSecondary>
-          </div>
-        </LicenseCard>
-        <ButtonSecondary buttonClassName={styles.addButton}>
-          <img src={plusIcon} alt="" />
-          Добавить ещё одну лицензию
-        </ButtonSecondary>
-      </div>
+          </LicenseCard>
+          <ButtonSecondary buttonClassName={styles.addButton}>
+            <img src={plusIcon} alt="" />
+            Добавить ещё одну лицензию
+          </ButtonSecondary>
+        </div>
+      </Condition>
     </div>
   );
 }

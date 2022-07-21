@@ -4,6 +4,7 @@ import React, {
 
 
 export interface License {
+  id: string,
   type: string,
   number: string,
   kindOfActivity: string,
@@ -29,6 +30,7 @@ interface Props {
 
 export function LicensesProvider({ children }: Props) {
   const [licenses, setLicensesState] = useState<Licenses>([{
+    id: 'ЛО-40-01-001077',
     type: 'Свидетельство СРО',
     number: 'ЛО-40-01-001077',
     kindOfActivity: 'Деятельности по монтажу, техническому обслуживанию и ремонту средств обеспечения пожарной безопасности зданий и сооружений.',

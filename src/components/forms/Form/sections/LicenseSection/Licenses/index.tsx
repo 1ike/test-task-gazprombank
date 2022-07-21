@@ -16,7 +16,7 @@ function Licenses() {
   return (
     <>
       {licenses.map((license) => (
-        <LicenseCard title={`Лицензия № ${license.number}`}>
+        <LicenseCard title={`Лицензия № ${license.number}`} key={license.id}>
           <Section>
             <LicenseViewBlock license={license} />
           </Section>
