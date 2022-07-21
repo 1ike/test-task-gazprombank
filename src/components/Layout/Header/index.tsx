@@ -24,18 +24,20 @@ function Header() {
   return (
     <header className={styles.header}>
       <a href="#" className={styles.logo}>Logo</a>
-      <div className={styles.user}>
-        <Button>
-          <img src={avatar} alt="Аватар" />
-          {user.fullname}
-        </Button>
-        <Button>
-          <img src={notification} alt="Уведомление" />
-        </Button>
-        <Button>
-          <img src={exit} alt="Выход" />
-        </Button>
-      </div>
+      {user && (
+        <div className={styles.user}>
+          <Button>
+            <img src={avatar} alt="Аватар" />
+            {user.fullname}
+          </Button>
+          <Button>
+            <img src={notification} alt="Уведомление" />
+          </Button>
+          <Button>
+            <img src={exit} alt="Выход" />
+          </Button>
+        </div>
+      )}
     </header>
   );
 }
