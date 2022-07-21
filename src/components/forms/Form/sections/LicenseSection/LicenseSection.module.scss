@@ -8,36 +8,3 @@
   @extend .header-3;
   margin: 0;
 }
-
-.fields {
-  display: flex;
-  flex-grow: 1;
-  gap: $form-section-row-field-field-gap;
-  align-items: center;
-}
-
-.checkbox {
-  @extend .form-section-row-label-base;
-
-  &__input {
-    margin-left: 24px;
-    margin-right: 8px;
-  }
-}
-
-.buttonBlock {
-  display: flex;
-  gap: 16px;
-  margin-top: 23px;
-}
-
-$verticalPadding: 8px;
-.button.button {
-  padding-top: $verticalPadding;
-  padding-bottom: $verticalPadding;
-}
-
-.addButton.addButton {
-  margin-top: 24px;
-  padding: $verticalPadding 12px;
-}

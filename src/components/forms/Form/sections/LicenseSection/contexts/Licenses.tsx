@@ -2,9 +2,9 @@ import React, {
   useCallback, useMemo, useState,
 } from 'react';
 
-
+export type LicenseID = string;
 export interface License {
-  id: string,
+  id: LicenseID,
   type: string,
   number: string,
   kindOfActivity: string,
