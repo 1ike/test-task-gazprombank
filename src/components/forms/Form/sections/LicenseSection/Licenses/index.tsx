@@ -5,13 +5,15 @@ import Section from '../../Section';
 import LicenseCard from '../LicenseCard';
 import LicenseViewBlock from './LicenseViewBlock';
 import styles from './Licenses.module.scss';
-import { LicensesContext } from '../contexts/Licenses';
+import { License, LicensesContext } from '../contexts/Licenses';
 import editIcon from '../../../../../../assets/images/edit.svg';
 import deleteIcon from '../../../../../../assets/images/delete.svg';
 
 
 function Licenses() {
-  const { licenses } = useContext(LicensesContext);
+  const { licenses, deleteLicense } = useContext(LicensesContext);
+
+  const onDelete = (license: License) => () => deleteLicense && deleteLicense(license);
 
   return (
     <>
@@ -25,7 +27,7 @@ function Licenses() {
               <img src={editIcon} alt="" />
               Редактировать
             </ButtonClear>
-            <ButtonClear>
+            <ButtonClear onClick={onDelete(license)}>
               <img src={deleteIcon} alt="" />
               Удалить
             </ButtonClear>

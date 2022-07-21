@@ -12,9 +12,7 @@ import LicenseCard from '../LicenseCard';
 import plusIcon from '../../../../../../assets/images/plus.svg';
 import { Label } from '../shared';
 import styles from './LicenseForms.module.scss';
-import {
-  License, LicenseID, Licenses, LicensesContext,
-} from '../contexts/Licenses';
+import { License, Licenses, LicensesContext } from '../contexts/Licenses';
 import required from '../../../../validation/required';
 
 
@@ -36,16 +34,13 @@ interface Props {
 }
 
 function LicenseForms({ input: { onChange } }: Props) {
-  const [formIds, setformIds] = useState([uniqueId()]);
+  const { licenses, addOrUpdateLicense } = useContext(LicensesContext);
+
+  const hasLicenses = licenses.length > 0;
+
+  const [formIds, setformIds] = useState(hasLicenses ? [] : [uniqueId()]);
 
   const addForm = () => setformIds([...formIds, uniqueId()]);
-  const deleteForm = (id: LicenseID) => () => {
-    if (formIds.length > 1) {
-      setformIds(formIds.filter((formId) => formId !== id));
-    }
-  };
-
-  const { licenses, addOrUpdateLicense } = useContext(LicensesContext);
 
   const onSubmit = (values: License) => {
     if (addOrUpdateLicense) addOrUpdateLicense(values);
@@ -60,62 +55,77 @@ function LicenseForms({ input: { onChange } }: Props) {
           onSubmit={onSubmit}
           initialValues={{ id }}
           render={({
-            handleSubmit,
-          }) => (
-            <LicenseCard title="Добавить новую">
-              <form>
-                <Section>
-                  <TexAndText
-                    label="Вид и номер документа"
-                    name1="type"
-                    name2="number"
-                    validate1={required}
-                    validate2={required}
-                  />
-                  <TextFieldsBlock data={licenseSectionTextBlockData} />
-                  <div className="form-section-row">
-                    <label className="form-section-row-label-base">
-                      Дата выдачи документа и срок действия
-                    </label>
-                    <div className={styles.fields}>
-                      <DateField
-                        name="dateOfIssue"
-                        validate={required}
-                      />
-                      <DateField
-                        name="validityPeriod"
-                        validate={required}
-                      />
-                      <label className={styles.checkbox}>
-                        <Field
-                          name="unlimited"
-                          component="input"
-                          type="checkbox"
-                          validate={required}
-                          className={styles.checkbox__input}
-                        />
-                        Бессрочно
+            handleSubmit, form: { reset },
+          }) => {
+            const deleteForm = () => {
+              if (formIds.length > 1 || hasLicenses) {
+                setformIds(formIds.filter((formId) => formId !== id));
+              } else {
+                reset();
+              }
+            };
+
+            const submitForm = () => {
+              handleSubmit();
+              deleteForm();
+            };
+
+            return (
+              <LicenseCard title="Добавить новую">
+                <form>
+                  <Section>
+                    <TexAndText
+                      label="Вид и номер документа"
+                      name1="type"
+                      name2="number"
+                      validate1={required}
+                      validate2={required}
+                    />
+                    <TextFieldsBlock data={licenseSectionTextBlockData} />
+                    <div className="form-section-row">
+                      <label className="form-section-row-label-base">
+                        Дата выдачи документа и срок действия
                       </label>
+                      <div className={styles.fields}>
+                        <DateField
+                          name="dateOfIssue"
+                          validate={required}
+                        />
+                        <DateField
+                          name="validityPeriod"
+                          validate={required}
+                        />
+                        <label className={styles.checkbox}>
+                          <Field
+                            name="unlimited"
+                            component="input"
+                            type="checkbox"
+                            validate={required}
+                            className={styles.checkbox__input}
+                          />
+                          Бессрочно
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                </Section>
-              </form>
-              <div className={styles.buttonBlock}>
-                <ButtonPrimary
-                  onClick={handleSubmit}
-                  buttonClassName={styles.button}
-                >
-                  Добавить
-                </ButtonPrimary>
-                <ButtonSecondary
-                  onClick={deleteForm(id)}
-                  buttonClassName={styles.button}
-                >
-                  Отменить
-                </ButtonSecondary>
-              </div>
-            </LicenseCard>
-          )}
+                  </Section>
+                </form>
+                <div className={styles.buttonBlock}>
+                  <ButtonPrimary
+                    onClick={submitForm}
+                    buttonClassName={styles.button}
+                  >
+                    Добавить
+                  </ButtonPrimary>
+                  <ButtonSecondary
+                    onClick={deleteForm}
+                    buttonClassName={styles.button}
+                  >
+                    Отменить
+                  </ButtonSecondary>
+                </div>
+              </LicenseCard>
+            );
+          }}
           key={id}
         />
       ))}
