@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Field } from 'react-final-form';
+import React, { useContext, useEffect, useState } from 'react';
+import { Field, Form } from 'react-final-form';
 import { uniqueId } from 'lodash';
 
 import ButtonPrimary from '../../../../../uiKit/buttons/ButtonPrimary';
@@ -12,23 +12,30 @@ import LicenseCard from '../LicenseCard';
 import plusIcon from '../../../../../../assets/images/plus.svg';
 import { Label } from '../shared';
 import styles from './LicenseForms.module.scss';
-import { LicenseID } from '../contexts/Licenses';
+import {
+  License, LicenseID, Licenses, LicensesContext,
+} from '../contexts/Licenses';
+import required from '../../../../validation/required';
 
 
-const licenseSectionScopeName = 'license';
 const licenseSectionTextBlockData = [
   {
-    name: `${licenseSectionScopeName}.kindOfActivity`,
+    name: 'kindOfActivity',
     label: Label.KindOfActivity,
+    validate: required,
   },
   {
-    name: `${licenseSectionScopeName}.issuer`,
+    name: 'issuer',
     label: Label.Issuer,
+    validate: required,
   },
 ];
 
+interface Props {
+  input: { onChange: (licenses: Licenses) => void }
+}
 
-function LicenseForms() {
+function LicenseForms({ input: { onChange } }: Props) {
   const [formIds, setformIds] = useState([uniqueId()]);
 
   const addForm = () => setformIds([...formIds, uniqueId()]);
@@ -38,55 +45,79 @@ function LicenseForms() {
     }
   };
 
+  const { licenses, addOrUpdateLicense } = useContext(LicensesContext);
+
+  const onSubmit = (values: License) => {
+    if (addOrUpdateLicense) addOrUpdateLicense(values);
+  };
+
+  useEffect(() => onChange(licenses), [onChange, licenses]);
+
   return (
     <>
       {formIds.map((id) => (
-        <LicenseCard title="Добавить новую" key={id}>
-          <Section>
-            <TexAndText
-              label="Вид и номер документа"
-              name1={`${licenseSectionScopeName}.type`}
-              name2={`${licenseSectionScopeName}.number`}
-            />
-            <TextFieldsBlock data={licenseSectionTextBlockData} />
-            <div className="form-section-row">
-              <label className="form-section-row-label-base">
-                Дата выдачи документа и срок действия
-              </label>
-              <div className={styles.fields}>
-                <DateField
-                  name={`${licenseSectionScopeName}.dateOfIssue`}
-                />
-                <DateField
-                  name={`${licenseSectionScopeName}.validityPeriod`}
-                />
-                <label className={styles.checkbox}>
-                  <Field
-                    name={`${licenseSectionScopeName}.unlimited`}
-                    component="input"
-                    type="checkbox"
-                    className={styles.checkbox__input}
+        <Form
+          onSubmit={onSubmit}
+          initialValues={{ id }}
+          render={({
+            handleSubmit,
+          }) => (
+            <LicenseCard title="Добавить новую">
+              <Section>
+                <form>
+                  <TexAndText
+                    label="Вид и номер документа"
+                    name1="type"
+                    name2="number"
+                    validate1={required}
+                    validate2={required}
                   />
-                  Бессрочно
-                </label>
+                  <TextFieldsBlock data={licenseSectionTextBlockData} />
+                  <div className="form-section-row">
+                    <label className="form-section-row-label-base">
+                      Дата выдачи документа и срок действия
+                    </label>
+                    <div className={styles.fields}>
+                      <DateField
+                        name="dateOfIssue"
+                        validate={required}
+                      />
+                      <DateField
+                        name="validityPeriod"
+                        validate={required}
+                      />
+                      <label className={styles.checkbox}>
+                        <Field
+                          name="unlimited"
+                          component="input"
+                          type="checkbox"
+                          validate={required}
+                          className={styles.checkbox__input}
+                        />
+                        Бессрочно
+                      </label>
+                    </div>
+                  </div>
+                </form>
+              </Section>
+              <div className={styles.buttonBlock}>
+                <ButtonPrimary
+                  onClick={handleSubmit}
+                  buttonClassName={styles.button}
+                >
+                  Добавить
+                </ButtonPrimary>
+                <ButtonSecondary
+                  onClick={deleteForm(id)}
+                  buttonClassName={styles.button}
+                >
+                  Отменить
+                </ButtonSecondary>
               </div>
-            </div>
-          </Section>
-          <div className={styles.buttonBlock}>
-            <ButtonPrimary
-              onClick={addForm}
-              buttonClassName={styles.button}
-            >
-              Добавить
-            </ButtonPrimary>
-            <ButtonSecondary
-              onClick={deleteForm(id)}
-              buttonClassName={styles.button}
-            >
-              Отменить
-            </ButtonSecondary>
-          </div>
-        </LicenseCard>
+            </LicenseCard>
+          )}
+          key={id}
+        />
       ))}
       <ButtonSecondary
         onClick={addForm}

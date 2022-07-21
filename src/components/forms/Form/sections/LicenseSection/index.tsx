@@ -1,4 +1,5 @@
 import React from 'react';
+import { Field } from 'react-final-form';
 
 import styles from './LicenseSection.module.scss';
 import Checkbox from '../../../rows/Checkbox';
@@ -7,7 +8,7 @@ import Condition from '../../../Condition';
 import LicenseForms from './LicenseForms';
 
 
-const licensesSwitchName = 'licensesSwitch';
+export const licensesSwitchName = 'licensesSwitch';
 
 
 interface Props {
@@ -25,7 +26,10 @@ function LicenseSection({ containerClassName }: Props) {
         <div className={styles.cards}>
           <h3 className={styles.cardsHeader}>Ваши лицензии:</h3>
           <Licenses />
-          <LicenseForms />
+          <Field
+            name="licenses"
+            component={LicenseForms}
+          />
         </div>
       </Condition>
     </div>

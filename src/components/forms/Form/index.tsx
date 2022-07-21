@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Form } from 'react-final-form';
+import { omit } from 'lodash';
 
 import styles from './Form.module.scss';
 import Progress, { ProgressStatus, SectionName, Statuses } from './Progress';
 import ButtonPrimary from '../../uiKit/buttons/ButtonPrimary';
-import LicenseSection from './sections/LicenseSection';
+import LicenseSection, { licensesSwitchName } from './sections/LicenseSection';
 import { LicensesProvider } from './sections/LicenseSection/contexts/Licenses';
 import Modal from '../../uiKit/Modal';
 import QuestionnaireSection from './sections/QuestionnaireSection';
@@ -31,7 +32,7 @@ function FormContent() {
 
   const [formData, setFormData] = useState({});
   const onSubmit = (values: Record<string, any>) => {
-    setFormData(values);
+    setFormData(omit(values, licensesSwitchName));
     setModalActive(true);
   };
 

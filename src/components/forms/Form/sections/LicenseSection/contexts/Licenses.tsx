@@ -19,6 +19,7 @@ export type Licenses = License[];
 interface ILicensesContext {
   licenses: Licenses;
   setLicenses?: (licenses: Licenses) => void;
+  addOrUpdateLicense?: (license: License) => void;
 }
 
 export const LicensesContext = React.createContext<ILicensesContext>({ licenses: [] });
@@ -45,7 +46,24 @@ export function LicensesProvider({ children }: Props) {
     [setLicensesState],
   );
 
-  const value = useMemo(() => ({ licenses, setLicenses }), [licenses, setLicenses]);
+  const addOrUpdateLicense = useCallback(
+    (newLicense: License) => {
+      const indexOfExistingLicense = licenses.findIndex((license) => newLicense.id === license.id);
+
+      if (indexOfExistingLicense >= 0) {
+        licenses[indexOfExistingLicense] = newLicense;
+        setLicensesState(licenses);
+      } else {
+        setLicensesState([...licenses, newLicense]);
+      }
+    },
+    [setLicensesState, licenses],
+  );
+
+  const value = useMemo(
+    () => ({ licenses, setLicenses, addOrUpdateLicense }),
+    [licenses, setLicenses, addOrUpdateLicense],
+  );
 
   return (
     <LicensesContext.Provider value={value}>
