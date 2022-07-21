@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 
 import { ButtonProps } from '../types';
 import styles from './ButtonSecondary.module.scss';
@@ -9,7 +10,7 @@ function ButtonSecondary({ children, buttonClassName, ...rest }: ButtonProps) {
     <button
       type="button"
       {...rest}
-      className={`${styles.button}${buttonClassName ? ` ${buttonClassName}` : ''}`}
+      className={cn(styles.button, buttonClassName)}
     >
       {children}
     </button>

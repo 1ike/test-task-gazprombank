@@ -63,8 +63,8 @@ function LicenseForms({ input: { onChange } }: Props) {
             handleSubmit,
           }) => (
             <LicenseCard title="Добавить новую">
-              <Section>
-                <form>
+              <form>
+                <Section>
                   <TexAndText
                     label="Вид и номер документа"
                     name1="type"
@@ -98,8 +98,8 @@ function LicenseForms({ input: { onChange } }: Props) {
                       </label>
                     </div>
                   </div>
-                </form>
-              </Section>
+                </Section>
+              </form>
               <div className={styles.buttonBlock}>
                 <ButtonPrimary
                   onClick={handleSubmit}

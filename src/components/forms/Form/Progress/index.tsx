@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 
 import styles from './Progress.module.scss';
 
@@ -43,7 +44,9 @@ function Progress({ headerText, names, statuses }: Props) {
       {names.map((name, index, array) => (
         <div key={name}>
           <div className={styles.section}>
-            <div className={`${styles.section__status} ${statusModificatorClassName[statuses[name]]}`} />
+            <div
+              className={cn(styles.section__status, statusModificatorClassName[statuses[name]])}
+            />
             <span className={styles.section__name}>{name}</span>
           </div>
           {(index + 1 !== array.length) && <div className={styles.trunk} />}

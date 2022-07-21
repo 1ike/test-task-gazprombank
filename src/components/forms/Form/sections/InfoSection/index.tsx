@@ -1,9 +1,10 @@
 import React from 'react';
 
-import Section from './Section';
-import TextFieldsBlock from '../../fieldBlocks/TextFieldsBlock';
-import DateAndText from '../../rows/DateAndText';
-import required from '../../validation/required';
+import Section from '../Section';
+import TextFieldsBlock from '../../../fieldBlocks/TextFieldsBlock';
+import DateAndText from '../../../rows/DateAndText';
+import required from '../../../validation/required';
+import styles from './InfoSection.module.scss';
 
 
 const infoSectionScopeName = 'info';
@@ -12,6 +13,7 @@ const infoSectionData1 = [
     name: `${infoSectionScopeName}.inn`,
     label: 'ИНН, ОГРН или ОГРНИП',
     validate: required,
+    inputClassName: styles.innInput,
   },
   {
     name: `${infoSectionScopeName}.fullname`,
