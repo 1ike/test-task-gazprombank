@@ -19,7 +19,7 @@ function LicenseViewBlock({ license }: { license: License }) {
     { label: Label.Document, value: `${license.type}, № ${license.number}` },
     { label: Label.KindOfActivity, value: license.kindOfActivity },
     { label: Label.Issuer, value: license.issuer },
-    { label: Label.Period, value: `${formatDate(license.dateOfIssue)} — ${formatDate(license.validityPeriod)}` },
+    { label: Label.Period, value: `${formatDate(license.dateOfIssue)} — ${license.unlimited ? 'Бессрочно' : formatDate(license.validityPeriod)}` },
   ];
 
   return (

@@ -32,7 +32,10 @@ function FormContent() {
 
   const [formData, setFormData] = useState({});
   const onSubmit = (values: Record<string, any>) => {
-    setFormData(omit(values, licensesSwitchName));
+    setFormData(omit(
+      values,
+      [licensesSwitchName, values.licenses.length > 0 ? '' : 'licenses'],
+    ));
     setModalActive(true);
   };
 

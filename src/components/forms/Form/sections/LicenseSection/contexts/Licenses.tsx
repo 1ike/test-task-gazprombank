@@ -31,7 +31,18 @@ interface Props {
 }
 
 export function LicensesProvider({ children }: Props) {
-  const [licenses, setLicensesState] = useState<Licenses>([]);
+  const [licenses, setLicensesState] = useState<Licenses>([
+    {
+      id: 'ЛО-40-01-001077',
+      type: 'Свидетельство СРО',
+      number: 'ЛО-40-01-001077',
+      kindOfActivity: 'Деятельности по монтажу, техническому обслуживанию и ремонту средств обеспечения пожарной безопасности зданий и сооружений.',
+      issuer: 'Комиссией по выдаче лицензий',
+      dateOfIssue: '2006-04-20',
+      validityPeriod: '2026-04-19',
+      unlimited: false,
+    },
+  ]);
 
   const setLicenses = useCallback(
     (newLicenses: Licenses) => setLicensesState(newLicenses),

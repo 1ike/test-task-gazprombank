@@ -54,8 +54,13 @@ function LicenseForms({ input: { onChange } }: Props) {
         <Form
           onSubmit={onSubmit}
           initialValues={{ id }}
+          mutators={{
+            resetValidityPeriod: (args, state, utils) => {
+              utils.changeValue(state, 'validityPeriod', () => undefined);
+            },
+          }}
           render={({
-            handleSubmit, form: { reset },
+            handleSubmit, form: { reset, mutators },
           }) => {
             const deleteForm = () => {
               if (formIds.length > 1 || hasLicenses) {
@@ -91,10 +96,20 @@ function LicenseForms({ input: { onChange } }: Props) {
                           name="dateOfIssue"
                           validate={required}
                         />
-                        <DateField
-                          name="validityPeriod"
-                          validate={required}
-                        />
+                        <Field name="unlimited" subscription={{ value: true }}>
+                          {({ input: { value } }) => {
+                            if (value) mutators.resetValidityPeriod();
+
+                            return (
+                              <DateField
+                                name="validityPeriod"
+                                validate={required}
+                                disabled={value}
+                              />
+                            );
+                          }}
+                        </Field>
+
                         <label className={styles.checkbox}>
                           <Field
                             name="unlimited"

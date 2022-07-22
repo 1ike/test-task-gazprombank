@@ -6,7 +6,9 @@ import cn from 'classnames';
 import styles from './TextField.module.scss';
 
 
-interface Props {
+interface Props extends React.DetailedHTMLProps<
+React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement
+> {
   name: string,
   validate?: FieldValidator<string>,
   inputClassName?: string,
