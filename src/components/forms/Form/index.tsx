@@ -34,7 +34,7 @@ function FormContent() {
   const onSubmit = (values: Record<string, any>) => {
     setFormData(omit(
       values,
-      [licensesSwitchName, values.licenses.length > 0 ? '' : 'licenses'],
+      [licensesSwitchName, values.licenses?.length > 0 ? '' : 'licenses'],
     ));
     setModalActive(true);
   };
@@ -45,12 +45,11 @@ function FormContent() {
   return (
     <Form
       onSubmit={onSubmit}
-      // initialValues={{ stooge: 'larry', employed: false }}
       render={({
         handleSubmit,
       }) => (
         <div className={styles.content}>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <InfoSection />
 
             <RegistrationSection containerClassName={styles.sectionMargin} />
@@ -62,7 +61,7 @@ function FormContent() {
             <QuestionnaireSection containerClassName={styles.questionnaireSectionMargin} />
 
             <ButtonPrimary
-              onClick={handleSubmit}
+              type="submit"
               buttonClassName={styles.submitButton}
             >
               Перейти к формированию документов
