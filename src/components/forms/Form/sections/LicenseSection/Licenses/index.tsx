@@ -8,31 +8,38 @@ import styles from './Licenses.module.scss';
 import { License, LicensesContext } from '../contexts/Licenses';
 import editIcon from '../../../../../../assets/images/edit.svg';
 import deleteIcon from '../../../../../../assets/images/delete.svg';
+import LicenseForm from '../LicenseForm/index';
 
 
 function Licenses() {
-  const { licenses, deleteLicense } = useContext(LicensesContext);
+  const {
+    licenses, deleteLicense, editingLicenseIds, deleteEditingLicenseIds,
+  } = useContext(LicensesContext);
 
   const onDelete = (license: License) => () => deleteLicense && deleteLicense(license);
 
   return (
     <>
       {licenses.map((license) => (
-        <LicenseCard title={`Лицензия № ${license.number}`} key={license.id}>
-          <Section>
-            <LicenseViewBlock license={license} />
-          </Section>
-          <div className={styles.viewButtons}>
-            <ButtonClear>
-              <img src={editIcon} alt="" />
-              Редактировать
-            </ButtonClear>
-            <ButtonClear onClick={onDelete(license)}>
-              <img src={deleteIcon} alt="" />
-              Удалить
-            </ButtonClear>
-          </div>
-        </LicenseCard>
+        editingLicenseIds.includes(license.id)
+          ? <LicenseForm initialValues={license} onCancel={deleteEditingLicenseIds!} edit />
+          : (
+            <LicenseCard title={`Лицензия № ${license.number}`} key={license.id}>
+              <Section>
+                <LicenseViewBlock license={license} />
+              </Section>
+              <div className={styles.viewButtons}>
+                <ButtonClear>
+                  <img src={editIcon} alt="" />
+                  Редактировать
+                </ButtonClear>
+                <ButtonClear onClick={onDelete(license)}>
+                  <img src={deleteIcon} alt="" />
+                  Удалить
+                </ButtonClear>
+              </div>
+            </LicenseCard>
+          )
       ))}
     </>
   );

@@ -21,9 +21,15 @@ interface ILicensesContext {
   setLicenses?: (licenses: Licenses) => void;
   addOrUpdateLicense?: (license: License) => void;
   deleteLicense?: (license: License) => void;
+  editingLicenseIds: LicenseID[];
+  addEditingLicenseIds?: (id: LicenseID) => void;
+  deleteEditingLicenseIds?: (id: LicenseID) => void;
 }
 
-export const LicensesContext = React.createContext<ILicensesContext>({ licenses: [] });
+export const LicensesContext = React.createContext<ILicensesContext>({
+  licenses: [],
+  editingLicenseIds: [],
+});
 
 
 interface Props {
@@ -32,16 +38,7 @@ interface Props {
 
 export function LicensesProvider({ children }: Props) {
   const [licenses, setLicensesState] = useState<Licenses>([
-    {
-      id: 'ЛО-40-01-001077',
-      type: 'Свидетельство СРО',
-      number: 'ЛО-40-01-001077',
-      kindOfActivity: 'Деятельности по монтажу, техническому обслуживанию и ремонту средств обеспечения пожарной безопасности зданий и сооружений.',
-      issuer: 'Комиссией по выдаче лицензий',
-      dateOfIssue: '2006-04-20',
-      validityPeriod: '2026-04-19',
-      unlimited: false,
-    },
+
   ]);
 
   const setLicenses = useCallback(
@@ -70,11 +67,43 @@ export function LicensesProvider({ children }: Props) {
     [setLicensesState, licenses],
   );
 
+
+  const [editingLicenseIds, setEditingLicenseIds] = useState<LicenseID[]>([]);
+
+  const addEditingLicenseIds = useCallback(
+    (id: LicenseID) => {
+      setEditingLicenseIds([...editingLicenseIds, id]);
+    },
+    [setEditingLicenseIds, editingLicenseIds],
+  );
+
+  const deleteEditingLicenseIds = useCallback(
+    (id: LicenseID) => setEditingLicenseIds(editingLicenseIds.filter(
+      (licenseID) => licenseID !== id,
+    )),
+    [setEditingLicenseIds, editingLicenseIds],
+  );
+
+
   const value = useMemo(
     () => ({
-      licenses, setLicenses, addOrUpdateLicense, deleteLicense,
+      licenses,
+      setLicenses,
+      addOrUpdateLicense,
+      deleteLicense,
+      editingLicenseIds,
+      addEditingLicenseIds,
+      deleteEditingLicenseIds,
     }),
-    [licenses, setLicenses, addOrUpdateLicense, deleteLicense],
+    [
+      licenses,
+      setLicenses,
+      addOrUpdateLicense,
+      deleteLicense,
+      editingLicenseIds,
+      addEditingLicenseIds,
+      deleteEditingLicenseIds,
+    ],
   );
 
   return (
