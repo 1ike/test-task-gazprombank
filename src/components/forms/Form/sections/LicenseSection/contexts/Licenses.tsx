@@ -1,6 +1,8 @@
 import React, {
-  useCallback, useMemo, useState,
+  useCallback, useLayoutEffect, useMemo, useState,
 } from 'react';
+import { uniqueId } from 'lodash';
+
 
 export type LicenseID = string;
 export interface License {
@@ -21,16 +23,17 @@ interface ILicensesContext {
   setLicenses?: (licenses: Licenses) => void;
   addOrUpdateLicense?: (license: License) => void;
   deleteLicense?: (license: License) => void;
-  editingLicenseIds: LicenseID[];
-  addEditingLicenseIds?: (id: LicenseID) => void;
-  deleteEditingLicenseIds?: (id: LicenseID) => void;
+  formIds: LicenseID[];
+  addFormId?: () => void;
+  deleteFormId?: (id: LicenseID) => void;
 }
 
 export const LicensesContext = React.createContext<ILicensesContext>({
   licenses: [],
-  editingLicenseIds: [],
+  formIds: [],
 });
 
+const generateId = () => uniqueId(); // must use uuid or nanoid for prod
 
 interface Props {
   children: React.ReactNode,
@@ -46,20 +49,6 @@ export function LicensesProvider({ children }: Props) {
     [setLicensesState],
   );
 
-  const addOrUpdateLicense = useCallback(
-    (newLicense: License) => {
-      const indexOfExistingLicense = licenses.findIndex((license) => newLicense.id === license.id);
-
-      if (indexOfExistingLicense >= 0) {
-        licenses[indexOfExistingLicense] = newLicense;
-        setLicensesState(licenses);
-      } else {
-        setLicensesState([...licenses, newLicense]);
-      }
-    },
-    [setLicensesState, licenses],
-  );
-
   const deleteLicense = useCallback(
     (deletingLicense: License) => {
       setLicensesState(licenses.filter((license) => deletingLicense.id !== license.id));
@@ -68,22 +57,39 @@ export function LicensesProvider({ children }: Props) {
   );
 
 
-  const [editingLicenseIds, setEditingLicenseIds] = useState<LicenseID[]>([]);
+  const hasLicenses = licenses.length > 0;
 
-  const addEditingLicenseIds = useCallback(
-    (id: LicenseID) => {
-      setEditingLicenseIds([...editingLicenseIds, id]);
+  const [formIds, setFormIds] = useState<LicenseID[]>(hasLicenses ? [] : [generateId()]);
+
+  const addFormId = useCallback(
+    () => setFormIds([...formIds, generateId()]),
+    [setFormIds, formIds],
+  );
+
+  const deleteFormId = useCallback((id: LicenseID) => {
+    setFormIds(formIds.filter((formId) => formId !== id));
+  }, [setFormIds, formIds]);
+
+
+  const addOrUpdateLicense = useCallback(
+    (newLicense: License) => {
+      const indexOfExistingLicense = licenses.findIndex((license) => newLicense.id === license.id);
+
+      if (indexOfExistingLicense >= 0) {
+        licenses[indexOfExistingLicense] = newLicense;
+        setLicensesState([...licenses]);
+      } else {
+        setLicensesState([...licenses, newLicense]);
+        deleteFormId(newLicense.id);
+      }
     },
-    [setEditingLicenseIds, editingLicenseIds],
+    [setLicensesState, licenses, deleteFormId],
   );
 
-  const deleteEditingLicenseIds = useCallback(
-    (id: LicenseID) => setEditingLicenseIds(editingLicenseIds.filter(
-      (licenseID) => licenseID !== id,
-    )),
-    [setEditingLicenseIds, editingLicenseIds],
-  );
 
+  useLayoutEffect(() => {
+    if (formIds.length === 0 && licenses.length === 0) addFormId();
+  });
 
   const value = useMemo(
     () => ({
@@ -91,18 +97,18 @@ export function LicensesProvider({ children }: Props) {
       setLicenses,
       addOrUpdateLicense,
       deleteLicense,
-      editingLicenseIds,
-      addEditingLicenseIds,
-      deleteEditingLicenseIds,
+      formIds,
+      addFormId,
+      deleteFormId,
     }),
     [
       licenses,
       setLicenses,
       addOrUpdateLicense,
       deleteLicense,
-      editingLicenseIds,
-      addEditingLicenseIds,
-      deleteEditingLicenseIds,
+      formIds,
+      addFormId,
+      deleteFormId,
     ],
   );
 

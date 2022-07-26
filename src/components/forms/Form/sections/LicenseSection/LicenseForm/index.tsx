@@ -29,7 +29,7 @@ const licenseSectionTextBlockData = [
 
 interface Props {
   initialValues: { id: LicenseID } | License,
-  onCancel: (id: LicenseID, reset?: () => void) => void,
+  onCancel: (id: LicenseID) => void,
   edit?: boolean,
 }
 
