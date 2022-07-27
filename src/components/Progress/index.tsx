@@ -4,33 +4,20 @@ import cn from 'classnames';
 import styles from './Progress.module.scss';
 
 
-export enum SectionName {
-  Info = 'Информация',
-  Registration = 'Сведения',
-  Licenses = 'Лицензии',
-  Questionnaire = 'Опросник',
-}
-
 export enum ProgressStatus {
   InProgress = 'InProgress',
   Success = 'Success',
   Error = 'Error',
 }
 
-export interface Statuses {
-  [SectionName.Info]: ProgressStatus,
-  [SectionName.Registration]: ProgressStatus,
-  [SectionName.Licenses]: ProgressStatus,
-  [SectionName.Questionnaire]: ProgressStatus,
-}
+export type Statuses<K> = Map<K, ProgressStatus>;
 
-interface Props {
+interface Props<K> {
   headerText: string,
-  names: SectionName[],
-  statuses: Statuses,
+  statuses: Statuses<K>,
 }
 
-function Progress({ headerText, names, statuses }: Props) {
+function Progress<K extends string>({ headerText, statuses }: Props<K>) {
   const statusModificatorClassNamePrefix = 'section__status--';
   const statusModificatorClassName = {
     [ProgressStatus.InProgress]: styles[`${statusModificatorClassNamePrefix}inProgress`],
@@ -38,14 +25,16 @@ function Progress({ headerText, names, statuses }: Props) {
     [ProgressStatus.Error]: styles[`${statusModificatorClassNamePrefix}error`],
   };
 
+  const statusesEntries = Array.from(statuses.entries());
+
   return (
     <div className={styles.container}>
       <h3 className={styles.header}>{headerText}</h3>
-      {names.map((name, index, array) => (
+      {statusesEntries.map(([name, status], index, array) => (
         <div key={name}>
           <div className={styles.section}>
             <div
-              className={cn(styles.section__status, statusModificatorClassName[statuses[name]])}
+              className={cn(styles.section__status, statusModificatorClassName[status])}
             />
             <span className={styles.section__name}>{name}</span>
           </div>

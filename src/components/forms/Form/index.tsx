@@ -3,7 +3,6 @@ import { Form } from 'react-final-form';
 import { omit } from 'lodash';
 
 import styles from './Form.module.scss';
-import Progress, { ProgressStatus, SectionName, Statuses } from './Progress';
 import ButtonPrimary from '../../uiKit/buttons/ButtonPrimary';
 import LicenseSection, { licensesSwitchName } from './sections/LicenseSection';
 import { LicensesProvider } from './sections/LicenseSection/contexts/Licenses';
@@ -11,19 +10,7 @@ import Modal from '../../uiKit/Modal';
 import QuestionnaireSection from './sections/QuestionnaireSection';
 import InfoSection from './sections/InfoSection';
 import RegistrationSection from './sections/RegistrationSection';
-
-
-const sectionNames = [
-  SectionName.Info,
-  SectionName.Registration,
-  SectionName.Licenses,
-  SectionName.Questionnaire,
-];
-
-const sectionProgressStatuses = sectionNames.reduce(
-  (acc, name) => ({ ...acc, [name]: ProgressStatus.InProgress }),
-  {} as Statuses,
-);
+import FormProgress from './FormProgress';
 
 
 function FormContent() {
@@ -38,9 +25,6 @@ function FormContent() {
     ));
     setModalActive(true);
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [progressStatuses, setProgressStatuses] = useState(sectionProgressStatuses);
 
   return (
     <Form
@@ -67,11 +51,9 @@ function FormContent() {
               Перейти к формированию документов
             </ButtonPrimary>
           </form>
-          <Progress
-            headerText="Заполнение анкеты"
-            names={sectionNames}
-            statuses={progressStatuses}
-          />
+
+          <FormProgress />
+
           <Modal modalActive={modalActive} onClose={closeModal}>
             <pre>{JSON.stringify(formData, null, ' ')}</pre>
           </Modal>
