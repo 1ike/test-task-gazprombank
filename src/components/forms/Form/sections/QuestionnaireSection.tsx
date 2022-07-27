@@ -2,28 +2,55 @@ import React from 'react';
 
 import Section from './Section';
 import CheckboxFieldsBlock from '../../fieldBlocks/CheckboxFieldsBlock';
+import { makeFieldPathGetter } from './lib';
 
 
-const questionnaireSectionScopeName = 'questionnaire';
+export const questionnaireSectionScopeName = 'questionnaire';
+export enum QuestionnaireSectionFieldName {
+  website = 'website',
+  pdl = 'pdl',
+  beneficiaries = 'beneficiaries',
+  representatives = 'representatives',
+  beneficialOwner = 'beneficialOwner',
+}
+
+const getPath = makeFieldPathGetter<
+  typeof questionnaireSectionScopeName, QuestionnaireSectionFieldName
+>(questionnaireSectionScopeName);
+
+export const questionnaireSectionPaths = {
+  [QuestionnaireSectionFieldName.website]: getPath(QuestionnaireSectionFieldName.website),
+  [QuestionnaireSectionFieldName.pdl]: getPath(QuestionnaireSectionFieldName.pdl),
+  [QuestionnaireSectionFieldName.beneficiaries]: getPath(
+    QuestionnaireSectionFieldName.beneficiaries,
+  ),
+  [QuestionnaireSectionFieldName.representatives]: getPath(
+    QuestionnaireSectionFieldName.representatives,
+  ),
+  [QuestionnaireSectionFieldName.beneficialOwner]: getPath(
+    QuestionnaireSectionFieldName.beneficialOwner,
+  ),
+};
+
 const questionnaireSectionData = [
   {
-    name: `${questionnaireSectionScopeName}.website`,
+    name: questionnaireSectionPaths.website,
     label: 'Предоставление услуг с использованием сайта в сети Интернет',
   },
   {
-    name: `${questionnaireSectionScopeName}.pdl`,
+    name: questionnaireSectionPaths.pdl,
     label: 'Статус публичного должностного лица (ПДЛ)',
   },
   {
-    name: `${questionnaireSectionScopeName}.beneficiaries`,
+    name: questionnaireSectionPaths.beneficiaries,
     label: 'Наличие выгодоприобретателей',
   },
   {
-    name: `${questionnaireSectionScopeName}.representatives`,
+    name: questionnaireSectionPaths.representatives,
     label: 'Наличие представителей',
   },
   {
-    name: `${questionnaireSectionScopeName}.beneficialOwner`,
+    name: questionnaireSectionPaths.beneficialOwner,
     label: 'Наличие бенефициарного владельца',
   },
 ];

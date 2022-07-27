@@ -5,40 +5,68 @@ import TextFieldsBlock from '../../../fieldBlocks/TextFieldsBlock';
 import DateAndText from '../../../rows/DateAndText';
 import required from '../../../validation/required';
 import styles from './InfoSection.module.scss';
+import { makeFieldPathGetter } from '../lib';
 
 
-const infoSectionScopeName = 'info';
+export const infoSectionScopeName = 'info';
+export enum InfoSectionFieldName {
+  inn = 'inn',
+  fullname = 'fullname',
+  citizenship = 'citizenship',
+  snils = 'snils',
+  registrationAddress = 'registrationAddress',
+  actualAddress = 'actualAddress',
+  birthdate = 'birthdate',
+  birthplace = 'birthplace',
+}
+
+const getPath = makeFieldPathGetter<typeof infoSectionScopeName, InfoSectionFieldName>(
+  infoSectionScopeName,
+);
+
+export const infoSectionPaths = {
+  [InfoSectionFieldName.inn]: getPath(InfoSectionFieldName.inn),
+  [InfoSectionFieldName.fullname]: getPath(InfoSectionFieldName.fullname),
+  [InfoSectionFieldName.citizenship]: getPath(InfoSectionFieldName.citizenship),
+  [InfoSectionFieldName.snils]: getPath(InfoSectionFieldName.snils),
+  [InfoSectionFieldName.registrationAddress]: getPath(InfoSectionFieldName.registrationAddress),
+  [InfoSectionFieldName.actualAddress]: getPath(InfoSectionFieldName.actualAddress),
+  [InfoSectionFieldName.birthdate]: getPath(InfoSectionFieldName.birthdate),
+  [InfoSectionFieldName.birthplace]: getPath(InfoSectionFieldName.birthplace),
+};
+
+
 const infoSectionData1 = [
   {
-    name: `${infoSectionScopeName}.inn`,
+    name: infoSectionPaths.inn,
     label: 'ИНН, ОГРН или ОГРНИП',
     validate: required,
     inputClassName: styles.innInput,
   },
   {
-    name: `${infoSectionScopeName}.fullname`,
+    name: infoSectionPaths.fullname,
     label: 'Фамилия, имя и отчество',
     validate: required,
   },
 ];
 const infoSectionData2 = [
   {
-    name: `${infoSectionScopeName}.citizenship`,
+    name: infoSectionPaths.citizenship,
     label: 'Гражданство',
     validate: required,
   },
   {
-    name: `${infoSectionScopeName}.snils`,
+    name: infoSectionPaths.snils,
     label: 'СНИЛС (при наличии)',
     validate: required,
   },
   {
-    name: `${infoSectionScopeName}.registrationAddress`,
+    name: infoSectionPaths.registrationAddress,
     label: 'Адрес места жительства (регистрации)',
     validate: required,
   },
   {
-    name: `${infoSectionScopeName}.actualAddress`,
+    name: infoSectionPaths.actualAddress,
     label: 'Адрес места пребывания (если отличается от места жительства)',
     validate: required,
   },
@@ -53,8 +81,8 @@ function InfoSection({ containerClassName }: { containerClassName?: string }) {
       <TextFieldsBlock data={infoSectionData1} />
       <DateAndText
         label="Дата и место рождения"
-        nameDate={`${infoSectionScopeName}.birthdate`}
-        nameText={`${infoSectionScopeName}.birthplace`}
+        nameDate={infoSectionPaths.birthdate}
+        nameText={infoSectionPaths.birthplace}
         validateDate={required}
         validateText={required}
       />

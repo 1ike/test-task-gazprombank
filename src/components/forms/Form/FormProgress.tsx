@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useFormState } from 'react-final-form';
+
 
 import Progress, { ProgressStatus } from '../../Progress';
 
@@ -27,11 +29,18 @@ const sectionProgressStatuses = sectionNames.reduce(
 
 
 function FormProgress() {
+  const formState = useFormState();
+  console.log('formState = ', formState);
+  if (formState?.touched?.['registration.number']) console.log(' t= ');
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [progressStatuses, setProgressStatuses] = useState(sectionProgressStatuses);
 
   return (
-    <Progress<SectionName> headerText="Заполнение анкеты" statuses={sectionProgressStatuses} />
+    <div>
+      <Progress<SectionName> headerText="Заполнение анкеты" statuses={sectionProgressStatuses} />
+      <button type="button" onClick={() => console.log('formState = ', formState)}>111</button>
+    </div>
   );
 }
 

@@ -4,12 +4,29 @@ import Section from './Section';
 import TextFieldsBlock from '../../fieldBlocks/TextFieldsBlock';
 import DateAndText from '../../rows/DateAndText';
 import required from '../../validation/required';
+import { makeFieldPathGetter } from './lib';
 
 
-const registrationSectionScopeName = 'registration';
+export const registrationSectionScopeName = 'registration';
+export enum RegistrationSectionFieldName {
+  place = 'place',
+  date = 'date',
+  number = 'number',
+}
+
+const getPath = makeFieldPathGetter<
+  typeof registrationSectionScopeName, RegistrationSectionFieldName
+>(registrationSectionScopeName);
+
+export const registrationSectionPaths = {
+  [RegistrationSectionFieldName.place]: getPath(RegistrationSectionFieldName.place),
+  [RegistrationSectionFieldName.date]: getPath(RegistrationSectionFieldName.date),
+  [RegistrationSectionFieldName.number]: getPath(RegistrationSectionFieldName.number),
+};
+
 const registrationSectionData = [
   {
-    name: `${registrationSectionScopeName}.place`,
+    name: registrationSectionPaths.place,
     label: 'Место регистрации',
     validate: required,
   },
