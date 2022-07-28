@@ -4,7 +4,7 @@ import { useFormState } from 'react-final-form';
 
 import Progress, { ProgressStatus } from '../../Progress';
 import { infoSectionPaths, infoSectionScopeName } from './sections/InfoSection';
-import { licensesSectionScopeName } from './sections/LicenseSection';
+import { licensesSectionScopeName, licensesSwitchName } from './sections/LicenseSection';
 import { questionnaireSectionPaths, questionnaireSectionScopeName } from './sections/QuestionnaireSection';
 import { registrationSectionPaths, registrationSectionScopeName } from './sections/RegistrationSection';
 
@@ -35,7 +35,10 @@ const sections: Section[] = [
   },
   {
     name: SectionName.Licenses,
-    paths: { licensesSectionScopeName },
+    paths: {
+      [licensesSectionScopeName]: licensesSectionScopeName,
+      [licensesSwitchName]: licensesSwitchName,
+    },
     sectionScopeName: licensesSectionScopeName,
   },
   {
@@ -49,31 +52,33 @@ const sections: Section[] = [
 const calculateSectionProp = (
   propState: { [key: string]: boolean },
   sectionPaths: Paths,
-) => Object.keys(propState).some((key) => Object.values(sectionPaths).includes(key));
+) => Object.keys(propState).some(
+  (key) => propState[key] && Object.values(sectionPaths).includes(key),
+);
 
 
 function FormProgress() {
-  const { dirtyFields, errors } = useFormState();
+  const { touched, errors } = useFormState();
 
   const sectionsState = sections.map((section) => {
-    const isDirty = calculateSectionProp(dirtyFields, section.paths);
+    const isTouched = calculateSectionProp(touched || {}, section.paths);
 
     const hasError = errors ? Object.keys(errors).some(
       (key) => section.sectionScopeName === (key as SectionScopeName),
     ) : false;
 
-    return ({ ...section, isDirty, hasError });
+    return ({ ...section, isTouched, hasError });
   });
 
   const sectionProgressStatuses = sectionsState.reduce(
-    (acc, { name, isDirty, hasError }, index, arr) => {
+    (acc, { name, hasError }, index, arr) => {
       let status = ProgressStatus.InProgress;
 
       const isLast = arr.length === index + 1;
       const isLeftedBehind = isLast
-        ? false : sectionsState.slice(index + 1).some((section) => section.isDirty);
+        ? false : sectionsState.slice(index + 1).some((section) => section.isTouched);
 
-      if (isDirty && isLeftedBehind) {
+      if (isLeftedBehind) {
         status = hasError ? ProgressStatus.Error : ProgressStatus.Success;
       }
 
