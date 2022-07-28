@@ -18,6 +18,7 @@ function DateField({ name, validate, disabled }: Props) {
       {({ input, meta }: FieldRenderProps<any, HTMLElement, any>) => (
         <div className={styles.container}>
           <input
+            {...input}
             name={input.name}
             value={input.value}
             onChange={input.onChange}
