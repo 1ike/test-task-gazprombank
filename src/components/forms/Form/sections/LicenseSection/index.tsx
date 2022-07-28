@@ -9,7 +9,7 @@ import LicenseForms from './LicenseForms';
 
 
 export const licensesSwitchName = 'licensesSwitch';
-
+export const licensesSectionScopeName = 'licenses';
 
 interface Props {
   containerClassName?: string,
@@ -27,7 +27,7 @@ function LicenseSection({ containerClassName }: Props) {
           <h3 className={styles.cardsHeader}>Ваши лицензии:</h3>
           <Licenses />
           <Field
-            name="licenses"
+            name={licensesSectionScopeName}
             component={LicenseForms}
           />
         </div>
