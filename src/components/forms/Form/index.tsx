@@ -4,7 +4,7 @@ import { omit } from 'lodash';
 
 import styles from './Form.module.scss';
 import ButtonPrimary from '../../uiKit/buttons/ButtonPrimary';
-import LicenseSection, { licensesSwitchName } from './sections/LicenseSection';
+import LicenseSection, { licensesSectionScopeName, licensesSwitchName } from './sections/LicenseSection';
 import { LicensesProvider } from './sections/LicenseSection/contexts/Licenses';
 import Modal from '../../uiKit/Modal';
 import QuestionnaireSection from './sections/QuestionnaireSection';
@@ -26,9 +26,23 @@ function FormContent() {
     setModalActive(true);
   };
 
+  const validate = (values: Record<string, any>) => {
+    const errors: { [licensesSwitchName]?: string } = {};
+
+    const licenses = values[licensesSectionScopeName];
+    const hasLicenses = licenses && licenses.length > 0;
+
+    if (values[licensesSwitchName] && !hasLicenses) {
+      errors[licensesSwitchName] = 'Добавьте хотя бы одну лицензию или выключите переключатель.';
+    }
+
+    return errors;
+  };
+
   return (
     <Form
       onSubmit={onSubmit}
+      validate={validate}
       render={({
         handleSubmit,
       }) => (

@@ -4,7 +4,7 @@ import { useFormState } from 'react-final-form';
 
 import Progress, { ProgressStatus } from '../../Progress';
 import { infoSectionPaths, infoSectionScopeName } from './sections/InfoSection';
-import { licensesSectionScopeName, licensesSwitchName } from './sections/LicenseSection';
+import { licensesSwitchName } from './sections/LicenseSection';
 import { questionnaireSectionPaths, questionnaireSectionScopeName } from './sections/QuestionnaireSection';
 import { registrationSectionPaths, registrationSectionScopeName } from './sections/RegistrationSection';
 
@@ -18,7 +18,7 @@ export enum SectionName {
 
 export type Paths = Record<string, string>;
 export type SectionScopeName = typeof infoSectionScopeName | typeof registrationSectionScopeName
-| typeof licensesSectionScopeName | typeof questionnaireSectionScopeName;
+| typeof licensesSwitchName | typeof questionnaireSectionScopeName;
 
 interface Section {
   name: SectionName,
@@ -36,10 +36,9 @@ const sections: Section[] = [
   {
     name: SectionName.Licenses,
     paths: {
-      [licensesSectionScopeName]: licensesSectionScopeName,
       [licensesSwitchName]: licensesSwitchName,
     },
-    sectionScopeName: licensesSectionScopeName,
+    sectionScopeName: licensesSwitchName,
   },
   {
     name: SectionName.Questionnaire,
@@ -58,16 +57,21 @@ const calculateSectionProp = (
 
 
 function FormProgress() {
-  const { touched, errors } = useFormState();
+  const {
+    touched, dirtyFields, errors, submitFailed,
+  } = useFormState();
 
   const sectionsState = sections.map((section) => {
     const isTouched = calculateSectionProp(touched || {}, section.paths);
+    const isDirty = calculateSectionProp(dirtyFields, section.paths);
 
     const hasError = errors ? Object.keys(errors).some(
       (key) => section.sectionScopeName === (key as SectionScopeName),
     ) : false;
 
-    return ({ ...section, isTouched, hasError });
+    return ({
+      ...section, isTouched, isDirty, hasError,
+    });
   });
 
   const sectionProgressStatuses = sectionsState.reduce(
@@ -76,9 +80,10 @@ function FormProgress() {
 
       const isLast = arr.length === index + 1;
       const isLeftedBehind = isLast
-        ? false : sectionsState.slice(index + 1).some((section) => section.isTouched);
+        ? false
+        : sectionsState.slice(index + 1).some((section) => section.isTouched || section.isDirty);
 
-      if (isLeftedBehind) {
+      if (isLeftedBehind || submitFailed) {
         status = hasError ? ProgressStatus.Error : ProgressStatus.Success;
       }
 
