@@ -38,10 +38,14 @@ function LicenseForm({
 }: Props) {
   const { addOrUpdateLicense } = useContext(LicensesContext);
 
-  const onSubmit = (values: License) => {
-    if (addOrUpdateLicense) addOrUpdateLicense(values);
+  const cancel = () => {
+    onCancel(id);
   };
 
+  const onSubmit = (values: License) => {
+    if (addOrUpdateLicense) addOrUpdateLicense(values);
+    cancel();
+  };
 
   const validate = (values: Record<string, any>) => {
     const errors: { validityPeriod?: string } = {};
@@ -66,28 +70,16 @@ function LicenseForm({
       render={({
         handleSubmit, form: { mutators, getState },
       }) => {
-        const { submitSucceeded, values } = getState();
+        const { values } = getState();
 
         const disableValidityPeriod = values.unlimited;
 
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useEffect(() => {
           if (disableValidityPeriod && values.validityPeriod) {
-            setTimeout(() => mutators.resetValidityPeriod(), 0);
+            mutators.resetValidityPeriod();
           }
         });
-
-        const cancel = () => {
-          onCancel(id);
-        };
-
-        const submitForm = () => {
-          handleSubmit()?.then(() => {
-            if (submitSucceeded) {
-              cancel();
-            }
-          });
-        };
 
         return (
           <LicenseCard title={edit ? 'Редактирование лицензии' : 'Добавить новую'}>
@@ -127,7 +119,7 @@ function LicenseForm({
             </Section>
             <div className={styles.buttonBlock}>
               <ButtonPrimary
-                onClick={submitForm}
+                onClick={handleSubmit}
                 buttonClassName={styles.button}
               >
                 {edit ? 'Сохранить изменения' : 'Добавить'}

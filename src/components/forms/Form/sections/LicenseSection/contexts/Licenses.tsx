@@ -80,10 +80,9 @@ export function LicensesProvider({ children }: Props) {
         setLicensesState([...licenses]);
       } else {
         setLicensesState([...licenses, newLicense]);
-        deleteFormId(newLicense.id);
       }
     },
-    [setLicensesState, licenses, deleteFormId],
+    [setLicensesState, licenses],
   );
 
 
