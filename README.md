@@ -1,4 +1,4 @@
-# Gazprombank test job (пока не закончено)
+# Gazprombank test job
 
 &nbsp;
 ## Задание

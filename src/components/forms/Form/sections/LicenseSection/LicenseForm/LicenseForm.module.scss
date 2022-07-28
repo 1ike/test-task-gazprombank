@@ -4,7 +4,6 @@
   display: flex;
   flex-grow: 1;
   gap: $form-section-row-field-field-gap;
-  align-items: center;
 }
 
 .checkbox {
@@ -13,6 +12,7 @@
   &__input {
     margin-left: 24px;
     margin-right: 8px;
+    margin-top: 9px;
   }
 }
 

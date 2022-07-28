@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 
 import ButtonPrimary from '../../../../../uiKit/buttons/ButtonPrimary';
@@ -42,6 +42,17 @@ function LicenseForm({
     if (addOrUpdateLicense) addOrUpdateLicense(values);
   };
 
+
+  const validate = (values: Record<string, any>) => {
+    const errors: { validityPeriod?: string } = {};
+
+    if (!values.unlimited) {
+      errors.validityPeriod = required(values.validityPeriod);
+    }
+
+    return errors;
+  };
+
   return (
     <Form
       onSubmit={onSubmit}
@@ -51,17 +62,31 @@ function LicenseForm({
           utils.changeValue(state, 'validityPeriod', () => undefined);
         },
       }}
+      validate={validate}
       render={({
-        handleSubmit, form: { reset, mutators },
+        handleSubmit, form: { mutators, getState },
       }) => {
+        const { submitSucceeded, values } = getState();
+
+        const disableValidityPeriod = values.unlimited;
+
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useEffect(() => {
+          if (disableValidityPeriod && values.validityPeriod) {
+            setTimeout(() => mutators.resetValidityPeriod(), 0);
+          }
+        });
+
         const cancel = () => {
           onCancel(id);
-          reset();
         };
 
         const submitForm = () => {
-          handleSubmit();
-          cancel();
+          handleSubmit()?.then(() => {
+            if (submitSucceeded) {
+              cancel();
+            }
+          });
         };
 
         return (
@@ -84,26 +109,15 @@ function LicenseForm({
                     name="dateOfIssue"
                     validate={required}
                   />
-                  <Field name="unlimited" subscription={{ value: true }}>
-                    {({ input: { value } }) => {
-                      if (value) setTimeout(() => mutators.resetValidityPeriod(), 0);
-
-                      return (
-                        <DateField
-                          name="validityPeriod"
-                          validate={required}
-                          disabled={value}
-                        />
-                      );
-                    }}
-                  </Field>
-
+                  <DateField
+                    name="validityPeriod"
+                    disabled={disableValidityPeriod}
+                  />
                   <label className={styles.checkbox}>
                     <Field
                       name="unlimited"
                       component="input"
                       type="checkbox"
-                      validate={required}
                       className={styles.checkbox__input}
                     />
                     Бессрочно
