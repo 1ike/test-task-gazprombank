@@ -58,7 +58,7 @@ const calculateSectionProp = (
 
 function FormProgress() {
   const {
-    touched, dirtyFields, errors, submitFailed,
+    touched, dirtyFields, errors, submitFailed, submitSucceeded,
   } = useFormState();
 
   const sectionsState = sections.map((section) => {
@@ -83,7 +83,7 @@ function FormProgress() {
         ? false
         : sectionsState.slice(index + 1).some((section) => section.isTouched || section.isDirty);
 
-      if (isLeftedBehind || submitFailed) {
+      if (isLeftedBehind || submitFailed || submitSucceeded) {
         status = hasError ? ProgressStatus.Error : ProgressStatus.Success;
       }
 
