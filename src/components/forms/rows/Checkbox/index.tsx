@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field } from 'react-final-form';
+import { Field, FieldRenderProps } from 'react-final-form';
 
 import styles from './Checkbox.module.scss';
 import checked from '../../../../assets/images/checked.svg';
@@ -13,19 +13,28 @@ interface Props {
 
 function Checkbox({ name, label }: Props) {
   return (
-    <label className={styles.label}>
-      {label}
-      <div className={styles.fieldWrapper}>
-        <Field
-          name={name}
-          component="input"
-          type="checkbox"
-          className={styles.field}
-        />
-        <img src={checked} alt="выбрано" className={styles.checked} />
-        <img src={unchecked} alt="не выбрано" className={styles.unchecked} />
-      </div>
-    </label>
+    <Field name={name} type="checkbox">
+      {({ input, meta }: FieldRenderProps<any, HTMLElement, any>) => (
+        <>
+          <label className={styles.label}>
+            {label}
+            <div className={styles.fieldWrapper}>
+              <input
+                {...input}
+                name={input.name}
+                value={input.value}
+                onChange={input.onChange}
+                className={styles.field}
+              />
+              <img src={checked} alt="выбрано" className={styles.checked} />
+              <img src={unchecked} alt="не выбрано" className={styles.unchecked} />
+            </div>
+
+          </label>
+          {meta.touched && meta.error && <span className="field-error">{meta.error}</span>}
+        </>
+      )}
+    </Field>
   );
 }
 
